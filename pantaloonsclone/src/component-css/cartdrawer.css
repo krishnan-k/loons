@@ -1,0 +1,8 @@
+.cart-drawer {
+    width: 25rem;
+    background: red;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    z-index: 2;
+}

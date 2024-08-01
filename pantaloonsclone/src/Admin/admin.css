@@ -1,0 +1,150 @@
+.admin_pannel_menu ul li {
+  list-style: none;
+  padding: 15px 40px;
+}
+
+.admin_pannel_dashboard,
+.pannel {
+  display: flex;
+  width: 100%;
+}
+
+.admin_pannel_dashboard {
+  max-width: 400px;
+  background: #263544;
+  height: 100vh;
+}
+
+.pannel .table {
+  height: 100%;
+}
+
+.table_section {
+  width: 100%;
+  margin: 30px;
+  height: 100%;
+}
+
+.pannel table.table th {
+  border: none;
+  box-shadow: rgb(0 0 0 / 10%) 0px 0px 0px 1px;
+  vertical-align: middle;
+  width: 20%;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.pannel .table :where(tr, td) {
+  text-transform: capitalize;
+}
+
+.pannel button.button{
+  border: none;
+  color: white;
+  padding: 10px 20px 10px 15px;
+  border-radius: 5px;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pannel .table button.button.edit-button {
+  background: #18c985;
+}
+
+.pannel .table button.button.delete-button {
+  background: #d94e3d;
+}
+
+.pannel button.button.add-item-button {
+  background: #18c985;
+}
+
+.add-more-item a {
+  display: flex;
+  gap: 5px;
+}
+
+.pannel .form-control-section {
+  width: 100%;
+  height: 100%;
+}
+
+.pannel .editdashboard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  margin: 30px;
+}
+
+.pannel .editdashboard input[type="text"], textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px;
+  border: none;
+  transition: box-shadow 0.3s linear;
+}
+.pannel .editdashboard input[type="text"]:focus-visible, textarea:focus-visible {
+  outline: none;
+}
+.pannel .editdashboard .form_description textarea {
+  min-height: 150px;
+}
+
+.pannel form.editdashboard>*:not(button) {
+  width: 50%;
+}
+
+.pannel form.editdashboard .upload-button,
+.pannel form.editdashboard .back-button  {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 36px;
+  border-radius: 5px;
+  /* width: 40%; */
+}
+.pannel form.editdashboard .upload-button{
+  background: #18c985;
+}
+.pannel form.editdashboard .back-button{
+  background: #d94e3d;
+}
+.pannel form.editdashboard .upload-button svg,
+.pannel form.editdashboard .back-button svg {
+  width: 16px;
+  height: 16px;
+}
+.add-to-cart-button:hover .shine-effect::after {
+  -webkit-animation: shine 0.85s;
+  animation: shine 0.85s;
+}
+.pannel form.editdashboard .editable-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.pannel .editdashboard input[type="text"]::placeholder,
+textarea::placeholder {
+  color: rgba(0,0,0,0.5);
+  font-size: 13px;
+}
+.pannel .editdashboard .form_price {
+  display: flex;
+  gap: 15px;
+}
+.pannel .editdashboard label {
+  font-size: 14px;
+}
+.pannel .editdashboard input[type="text"]:focus, textarea:focus {
+  box-shadow: #00b0b5 0px 0px 0px 1px;
+}

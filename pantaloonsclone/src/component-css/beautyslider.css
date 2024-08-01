@@ -1,0 +1,4 @@
+.beauty_slider .swiper .swiper-button-next, .beauty_slider .swiper .swiper-button-prev {
+    top: 50%;
+    transform: translateY(-50%);
+}

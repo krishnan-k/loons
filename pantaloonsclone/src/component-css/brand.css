@@ -1,0 +1,28 @@
+.brand .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.brand .card_heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand .card_heading h4 {
+    font-family: Trirong, serif;
+    font-style: italic;
+    text-transform: capitalize;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.brand .card_heading a {
+    color: #00b0b5;
+    font-size: 14px;
+    letter-spacing: 2.2px;
+}
+.brand.women-brand .swiper-slide img {
+    border-radius: 50%;
+}

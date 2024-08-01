@@ -1,0 +1,95 @@
+.navbar_section {
+    background: #00b0b5;
+    padding: .5rem 6rem;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.navbar_section a.navbar-brand img {
+    max-width: 180px;
+}
+
+.navbar_section .nav-item a.nav-link {
+    letter-spacing: 1.5px;
+    font-size: 15px;
+}
+
+.cart-icon svg[stroke] {
+    color: white;
+}
+
+.cart-icon svg path {
+    stroke-width: 38px;
+}
+
+.cart-icon svg[stroke],
+.account-icon svg[stroke] {
+    color: white;
+    width: 20px;
+    height: 20px;
+}
+
+.mega-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.megamenu-section .mega-menu ul {
+    padding: 0;
+}
+
+.megamenu-section .mega-menu ul li {
+    list-style: none;
+}
+
+.megamenu-section .mega-menu h4 {
+    font-size: 12px;
+}
+
+.megamenu-section .mega-menu ul li a {
+    font-size: 11px;
+}
+
+.navbar_section .navbar {
+    position: static;
+}
+
+.megamenu-section {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 100vh;
+    background: #00000082;
+    margin: 17px 0 0;
+    transition: opacity 0.3s ease, visibility 0.35s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+.navbar_section .nav-item:hover .megamenu-section{
+    visibility: visible;
+    opacity: 1;
+}
+.megamenu-content {
+    background: white;
+}
+.cart-icon {
+    position: relative;
+}
+.product-count {
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    background: rgb(255, 201, 41);
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    padding-top: 1px;
+}

@@ -1,0 +1,121 @@
+.card_collection_one .card-body p.card-text {
+    white-space: nowrap;
+    width: -webkit-fill-available;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+}
+
+.card-body h5.card-title {
+    font-size: 13px;
+    letter-spacing: 2.2px;
+    font-weight: 600;
+}
+
+.card_collection_one .card {
+    padding: 5px;
+}
+
+.card_collection_one .card .card-body {
+    padding: 15px 5px;
+}
+
+.card_collection_one .card,
+.card_collection_one .card img {
+    border-radius: 5px;
+}
+
+.card_collection_one .card_heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card_collection_one .card_heading h4 {
+    font-family: Trirong, serif;
+    font-style: italic;
+    text-transform: capitalize;
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.card_collection_one .card_heading a {
+    color: #00b0b5;
+    font-size: 14px;
+}
+
+.card_collection_one p.product_price {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+}
+
+.Card_Swiper_Carousel_One.container {
+    overflow: hidden;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.card_collection_one .swiper {
+    overflow: visible;
+}
+
+.card_collection_one .swiper .swiper-button-prev:after {
+    position: relative;
+    left: -20px;
+}
+
+.card_collection_one .swiper .swiper-button-next:after {
+    position: relative;
+    right: -20px;
+}
+
+.card_collection_one .swiper .swiper-button-prev:after,
+.card_collection_one .swiper .swiper-button-next:after {
+    font-size: 14px;
+    color: black;
+}
+
+.card_collection_one .swiper .swiper-button-next:before,
+.card_collection_one .swiper .swiper-button-prev:before {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 70px;
+    background: #F6C929;
+    z-index: -1;
+}
+
+.Card_Swiper_Carousel_One .card-body {
+    padding: 15px 5px;
+}
+
+.card_collection_one .swiper .swiper-button-next:before {
+    border-radius: 50px 0 0 50px;
+    right: -30px;
+}
+
+.card_collection_one .swiper .swiper-button-prev:before {
+    border-radius: 0 50px 50px 0;
+    left: -30px;
+}
+
+span.product_price {
+    margin-left: 5px;
+}
+
+span.special_offer {
+    margin-left: 5px;
+    font: italic 600 10px Trirong, serif;
+    text-shadow: 1px 1px 1px #dba400;
+}
+
+.women-shop-look .card-body h5.card-title,
+.men-shop-look .card-body h5.card-title {
+    font-family: Trirong, serif;
+    font-style: italic;
+    font-size: 25px;
+    letter-spacing: normal;
+
+}

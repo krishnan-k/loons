@@ -1,0 +1,58 @@
+.giftcard-content-section{
+    background-image: url("../image/leaf-2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}
+.giftcard .giftcard-content-section {
+    /* background: #d2fdff; */
+    padding:  0 100px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+.giftcard .greencard-content img{
+    border-radius: 10px;
+}
+.giftcard .greencard-content h4.heading {
+    font-family: Trirong, serif;
+    font-style: italic;
+    text-transform: capitalize;
+    font-size: 24px;
+    font-weight: 400;
+}
+.giftcard .giftcard-content-section>* {
+    width: 50%;
+}
+.giftcard .giftcard-content-section .greencard-content.one {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+.giftcard .giftcard-content-section .greencard-content{
+    padding: 60px 0;
+}
+.giftcard .giftcard-content-section .greencard-content.two {
+    padding: 60px 80px 60px 20px;
+}
+.giftcard .greencard-content.two a.button {
+    color: #00b0b5;
+    font-size: 14px;
+    letter-spacing: 2.2px;
+}
+.giftcard .greencard-content.one:after {
+    content: '';
+    position: absolute;
+    width: 520px;
+    height: 300px;
+    background: #fff;
+    bottom: 0;
+    left: 50%;
+    top: auto;
+    transform: translateX(-50%);
+    border-radius: 120px 120px 0 0;
+    z-index: -1;
+}
