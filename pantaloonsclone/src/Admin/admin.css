@@ -25,6 +25,7 @@
   height: 100%;
 }
 
+.pannel table.table td,
 .pannel table.table th {
   border: none;
   box-shadow: rgb(0 0 0 / 10%) 0px 0px 0px 1px;

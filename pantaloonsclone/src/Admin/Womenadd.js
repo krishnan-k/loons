@@ -5,38 +5,69 @@ import { FaBackspace } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
 
 const Womenadd = () => {
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    const form = e.target;
+    const productTitle = form.productTitle.value
+    const productPrice = form.productPrice.value
+    const productImg = form.productImg.value
+    const productDesc = form.productDesc.value
+    const quantity = 1
+
+    if(productTitle ==="" || productPrice === "" || productImg === "" || productDesc === ""){
+      alert("Fill the all fields");
+      return
+    }
+
+    const productObject ={productTitle, productPrice, productImg, productDesc, quantity}
+    console.log(productObject);
+
+    fetch("http://localhost:5000/women",{
+      method: 'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(productObject)
+    })
+    .then((res) => res.json())
+    .then((data) =>{
+      alert('product added successfully')
+      form.reset();
+    })
+  }
   return (
     <div className="pannel">
       <Admin />
       <div className="form-control-section">
-        <form className="editdashboard">
+        <form className="editdashboard" onSubmit={handleSubmit}>
           <div className="form_title mb-3">
-            <label className="text-capitalize" for="title">
+            <label value="productTitle" className="text-capitalize">
               Title
             </label>
             <input
               className="text-capitalize"
               type="text"
-              id="title"
-              name="title"
-              placeholder="add your title here"
+              id="productTitle"
+              name="productTitle"
+              placeholder="add your title here" 
             />
           </div>
           <div className="form_price mb-3">
             <div className="original_price">
-              <label className="text-capitalize" for="price">
+              <label value="productPrice" className="text-capitalize">
                 price
               </label>
               <input
                 className="text-capitalize"
                 type="text"
-                id="price"
-                name="price"
+                id="productPrice"
+                name="productPrice"
                 placeholder="price"
+                
               />
             </div>
             <div className="compare_price">
-              <label className="text-capitalize" for="price">
+              <label className="text-capitalize">
                 compare price
               </label>
               <input
@@ -45,29 +76,33 @@ const Womenadd = () => {
                 id="price"
                 name="price"
                 placeholder="compare price"
+        
               />
             </div>
           </div>
           <div className="form_image mb-3">
-            <label className="text-capitalize" for="image">
+            <label value="productImg" className="text-capitalize">
               Image url
             </label>
             <input
               className="text-capitalize"
               type="text"
-              id="image"
-              name="image"
+              id="productImg"
+              name="productImg"
               placeholder="add your Img url here"
+              
             />
           </div>
           <div className="form_description mb-3">
-            <label className="text-capitalize" for="image">
+            <label value="productDesc" className="text-capitalize">
               Description
             </label>
             <textarea
               className="text-capitalize"
-              id="title_description"
+              id="productDesc"
+              name="productDesc"
               placeholder="enter your description"
+              
             ></textarea>
           </div>
           <div className="editable-buttons">
@@ -77,7 +112,6 @@ const Womenadd = () => {
                 className="text-capitalize back-button shine-effect"
                 type="button"
               >
-                {" "}
                 <FaBackspace />
                 back
               </button>
@@ -85,9 +119,9 @@ const Womenadd = () => {
             <button
               id="upload"
               className="text-capitalize upload-button shine-effect"
-              type="button"
+              type="submit"
+              
             >
-              {" "}
               <IoMdCloudUpload /> upload
             </button>
           </div>

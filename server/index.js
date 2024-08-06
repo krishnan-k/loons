@@ -71,12 +71,12 @@ async function run() {
 
       //update metod db
       const updateData = {
-        $set : {
+        $set: {
           ...data
         }
       }
 
-      const option = {upsert: true}
+      const option = { upsert: true }
       const result = await womenCollection.updateOne(
         filter,
         updateData,
@@ -86,7 +86,7 @@ async function run() {
     });
 
     //delete method
-    app.delete("/update/:id", async (req,   res) => {
+    app.delete("/update/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const result = await womenCollection.deleteOne(filter);

@@ -22,7 +22,8 @@ const cartSlice = createSlice({
                     title: newItem.title,
                     description:newItem.description,
                     quantity: newItem.quantity,
-                    price: newItem.price
+                    price: newItem.price,
+                    comparePrice: newItem.comparePrice
                 });
             }
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
@@ -33,8 +34,16 @@ const cartSlice = createSlice({
             );
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },
+        updateQuantity: (state,action) =>{
+            const {id, quantity} = action.payload;
+            const itemToUpdate = state.cartItems.find(items => items.id === id);
+            if(itemToUpdate){
+                itemToUpdate.quantity = quantity;
+                localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+            }
+        }
     }
 });
 
 export default cartSlice.reducer;
-export const { addToCart, deleteCart } = cartSlice.actions;
+export const { addToCart, deleteCart, updateQuantity } = cartSlice.actions;

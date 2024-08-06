@@ -52,7 +52,7 @@ export const Cardcollection = () => {
                   <div className="add-to-cart-button">  
                     {product.find(items => items.id === item.id)
                     ? <div className="add">
-                      <Link to="cart" className="view-cart text-center text-decoration-none text-white text-capitalize">view cart</Link>
+                      <Link to="/cart" className="view-cart text-center text-decoration-none text-white text-capitalize">view cart</Link>
                      <div className="delete-cart text-center text-white text-capitalize" onClick={()=> deleteFromCart(item) }>delete cart <MdDeleteForever/></div> </div>   :
                     <div className="add-to-cart text-center text-decoration-none text-white text-capitalize shine-effect" onClick={() => addCart(item)}>add to cart</div>
                     } 

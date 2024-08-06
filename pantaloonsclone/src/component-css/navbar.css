@@ -76,6 +76,12 @@
     background: white;
 }
 .cart-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.cart-icon a.cart{
     position: relative;
 }
 .product-count {
@@ -92,4 +98,7 @@
     font-size: 12px;
     font-weight: 700;
     padding-top: 1px;
+}
+.cart_total p {
+    font-size: 14px;
 }

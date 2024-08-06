@@ -3,16 +3,39 @@ import "../component-css/cart.css";
 import emptyCartIcon from "../image/empty-cart.jpg";
 import Cardcollectiontrend from "../component/Cardcollectiontrend";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCart } from "../store/Cartslice";
+import { deleteCart, updateQuantity } from "../store/Cartslice";
 import { MdDeleteForever } from "react-icons/md";
 import flashImage from "../image/flash.svg";
 import { Link } from "react-router-dom";
+import { FaMinus, FaPlus } from "react-icons/fa";
 export const Cart = () => {
   const product = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   const deleteFromCart = (item) => {
     dispatch(deleteCart(item));
   };
+  const IncrementQuantity = (id, quantity) => {
+      // if (typeof quantity !== "number") {
+      //   quantity = 1;
+      // }
+    if(quantity === ''){
+      quantity = 1;
+    }
+    dispatch(updateQuantity({ id, quantity: quantity + 1 }));
+  };
+  const DecrementQuantity = (id, quantity) => {
+    // if (typeof quantity !== "number") {
+    //   quantity = 1;
+    // }
+    if(quantity === ''){
+      quantity = 1;
+    }
+    if (quantity > 1) {
+      dispatch(updateQuantity({ id, quantity: quantity - 1 }));
+    }
+  };
+  // const totalQuantity = product.reduce((total,item) => total + (item.quantity),0);
+  const totalAmout = product.reduce((total, item) => total + (item.price*item.quantity),0);
   return (
     <div className="container-fluid cart-page">
       <div className="empty-cart-page text-center pt-5 pb-2 mt-3 mb-1">
@@ -26,7 +49,9 @@ export const Cart = () => {
                 Let's find you your fashion fix
               </p>
               <button className="cart-empty-button mt-4 mb-4" type="button">
-                <Link to="/" className="text-decoration-none text-white">explore</Link>
+                <Link to="/" className="text-decoration-none text-white">
+                  explore
+                </Link>
               </button>
             </div>
           </div>
@@ -60,6 +85,24 @@ export const Cart = () => {
                       ₹{item.comparePrice}
                     </span>
                   </p>
+
+                  <div className="quantity-buttons mt-2">
+                    <button
+                      type="button"
+                      className="quantity_button"
+                      onClick={() => DecrementQuantity(item.id, item.quantity)}
+                    >
+                      <FaMinus />
+                    </button>
+                    {item.quantity}
+                    <button
+                      type="button"
+                      className="quantity_button"
+                      onClick={() => IncrementQuantity(item.id, item.quantity)}
+                    >
+                      <FaPlus />
+                    </button>
+                  </div>
                 </div>
                 <div className="add-to-cart-button cart-button">
                   <MdDeleteForever onClick={() => deleteFromCart(item)} />

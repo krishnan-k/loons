@@ -8,8 +8,19 @@ import "../component-css/cardcollectionnew.css";
 import womenTrendsProducts from "../collection-products/Womentrendsproducts";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { MdDeleteForever } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteCart } from "../store/Cartslice";
 
 const Womentrends = () => {
+  const product = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
+  const addCart = (item) => {
+    dispatch(addToCart(item));
+  };
+  const deleteFromCart = (item) => {
+    dispatch(deleteCart(item));
+  };
   return (
     <div className="card_collection_one card_trend mt-4 mb-4 pt-2 pb-2">
       <div className="Card_Swiper_Carousel_One container">
@@ -25,13 +36,33 @@ const Womentrends = () => {
         >
           {womenTrendsProducts.map((item) => (
             <SwiperSlide>
-              <div class="card border-0 p-0" key={item.id}>
+              <div class="card border-0 p-0 card-product" key={item.id}>
                 <div className="product-image">
                   <img src={item.image} alt="image" />
                   <div className="add-to-cart-button">
-                    <Link to="cart">
-                      <IoBagHandleOutline />
-                    </Link>
+                    {product.find((items) => items.id === item.id) ? (
+                      <div className="add">
+                        <Link
+                          to="/cart"
+                          className="view-cart text-center text-decoration-none text-white text-capitalize"
+                        >
+                          view cart
+                        </Link>
+                        <div
+                          className="delete-cart text-center text-white text-capitalize"
+                          onClick={() => deleteFromCart(item)}
+                        >
+                          delete cart <MdDeleteForever />
+                        </div>{" "}
+                      </div>
+                    ) : (
+                      <div
+                        className="add-to-cart text-center text-decoration-none text-white text-capitalize shine-effect"
+                        onClick={() => addCart(item)}
+                      >
+                        add to cart
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

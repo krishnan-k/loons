@@ -16,7 +16,7 @@ const dealDayProduct = [
         description: "Blue Solid Casual Men Regular Fit Kurtas",
         price: 824,
         comparePrice: 1099,
-        quantity: 50
+        quantity: 1
     },
     {
         id: 2,
@@ -25,7 +25,7 @@ const dealDayProduct = [
         description: "Peach Printed Athleisure Half Sleeves Round Neck Women Regular",
         price: 719,
         comparePrice:899,
-        quantity: 50
+        quantity: 1
     },
     {
         id: 3,
@@ -34,7 +34,7 @@ const dealDayProduct = [
         description: "Medium Blue Textured Casual Half Sleeves Polo Collar Men Slim",
         price: 655,
         comparePrice:799,
-        quantity: 50
+        quantity: 1
     },
     {
         id: 4,
@@ -43,7 +43,7 @@ const dealDayProduct = [
         description: "White Printed Party Full Sleeves Shirt Collar Men Slim Fit",
         price: 597,
         comparePrice:699,
-        quantity: 50
+        quantity: 1
     },
     {
         id: 5,
@@ -52,7 +52,7 @@ const dealDayProduct = [
         description: "Yellow Print Casual V Neck 3/4th Sleeves Knee Length Women",
         price: 629,
         comparePrice:899,
-        quantity: 50
+        quantity: 1
     },
     {
         id: 6,
@@ -61,7 +61,7 @@ const dealDayProduct = [
         description: "Medium Grey Solid Full Length Casual Men Regular Fit Joggers",
         price: 749,
         comparePrice:999,
-        quantity: 50
+        quantity: 1
     },
     {
         id: 7,
@@ -70,7 +70,7 @@ const dealDayProduct = [
         description: "Pink Printed Full Length Mid Rise Casual Women Jogger Track Pants",
         price: 679,
         comparePrice:799,
-        quantity: 50
+        quantity: 1
     },
     {
         id: 8,
@@ -79,7 +79,7 @@ const dealDayProduct = [
         description: "Yellow Embroidered Ethnic 3/4th Sleeves Square Neck Women Flared Fit  Kurta Gharara Dupatta Set",
         price: 629,
         comparePrice:699,
-        quantity: 50
+        quantity: 1
     },
     {
         id: 9,
@@ -88,7 +88,7 @@ const dealDayProduct = [
         description: "Medium Blue Printed Casual Full Sleeves Shirt Collar Men Slim Fit Casual Shirts",
         price: 824,
         comparePrice:1099,
-        quantity: 50
+        quantity: 1
     }
 ]
 export default dealDayProduct
