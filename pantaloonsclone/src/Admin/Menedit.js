@@ -65,7 +65,7 @@ const Menedit = () => {
           </div>
           <div className="editable-buttons">
             <Link to="/admin/mendashboard" className="text-decoration-none"><button id="back-button" className="text-capitalize back-button shine-effect" type="button"> <FaBackspace />back</button></Link>            
-            <button id="upload" className="text-capitalize upload-button shine-effect" type="button"> <IoMdCloudUpload /> upload</button>
+            <button id="upload" className="text-capitalize upload-button shine-effect" type="submit"> <IoMdCloudUpload /> upload</button>
           </div>
         </form>
       </div>

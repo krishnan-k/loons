@@ -4,6 +4,8 @@ import { MdAddBox } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 const Womendashboard = () => {
   const [productItems, setProductItems] = useState([]);
 
@@ -18,7 +20,7 @@ const Womendashboard = () => {
     })
       .then((req) => req.json())
       .then((data) => {
-        //alert('product added successfully');
+        toast.error('Delete Successfully');
         setProductItems(previousData => previousData.filter(item => item._id !== id));
       })
   }
@@ -50,7 +52,7 @@ const Womendashboard = () => {
               <td>{item.productTitle}</td>
               <td>{item.productPrice}</td>
               <td>
-                <Link to="/admin/womenedit" className="text-decoration-none"><button
+                <Link to={`/admin/womenedit/${item._id}`} className="text-decoration-none"><button
                   type="button"
                   className="button text-capitalize edit-button shine-effect"
                 >
@@ -71,6 +73,7 @@ const Womendashboard = () => {
           </tbody>
         </table>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

@@ -39,12 +39,12 @@ async function run() {
       const result = await womenCollection.insertOne(data);
       res.send(result);
     });
-    app.post("men_collections.added", async (req, res) => {
+    app.post("/men", async (req, res) => {
       const data = req.body;
       const result = await menCollection.insertOne(data);
       res.send(result);
     });
-    app.post("kids_collections.added", async (req, res) => {
+    app.post("/kids", async (req, res) => {
       const data = req.body;
       const result = await kidsCollection.insertOne(data);
       res.send(result);
@@ -61,6 +61,18 @@ async function run() {
       const result = await womenCollection.findOne(filter);
       res.send(result);
     });
+
+    app.get("/getmen", async(req,res)=>{
+      const product = await menCollection.find().toArray();
+      res.send(product);
+    })
+    app.get("/men/:id", async(req,res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const result = await menCollection.findOne(filter);
+      res.send(result);
+    });
+
 
 
     //patch method
@@ -85,6 +97,26 @@ async function run() {
       res.send(result);
     });
 
+    app.patch("/menupdate/:id", async(req, res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const data = req.body
+
+      const updateData = {
+        $set:{
+          ...data
+        }
+      }
+
+      const option = {upsert: true}
+      const result = await menCollection.updateOne(
+        filter,
+        updateData,
+        option
+      )
+      res.send(result);
+    })
+
     //delete method
     app.delete("/update/:id", async (req, res) => {
       const id = req.params.id;
@@ -93,6 +125,12 @@ async function run() {
       res.send(result);
     });
 
+    app.delete("/menupdate/:id", async (req, res)=>{
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const result = await menCollection.deleteOne(filter);
+      res.send(result); 
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });

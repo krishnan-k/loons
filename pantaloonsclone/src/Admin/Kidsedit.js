@@ -76,7 +76,6 @@ const Kidsedit = () => {
                 className="text-capitalize back-button shine-effect"
                 type="button"
               >
-                {" "}
                 <FaBackspace />
                 back
               </button>
@@ -86,7 +85,6 @@ const Kidsedit = () => {
               className="text-capitalize upload-button shine-effect"
               type="button"
             >
-              {" "}
               <IoMdCloudUpload /> upload
             </button>
           </div>

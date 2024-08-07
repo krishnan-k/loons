@@ -1,8 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+  import { Link } from "react-router-dom";
 import Admin from "./Admin";
 import { FaBackspace } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
+import {toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Womenadd = () => {
   const handleSubmit = (e) =>{
@@ -15,7 +18,7 @@ const Womenadd = () => {
     const quantity = 1
 
     if(productTitle ==="" || productPrice === "" || productImg === "" || productDesc === ""){
-      alert("Fill the all fields");
+      toast.error("Fill the all fields");
       return
     }
 
@@ -31,7 +34,7 @@ const Womenadd = () => {
     })
     .then((res) => res.json())
     .then((data) =>{
-      alert('product added successfully')
+      toast.success('Product added successfully')
       form.reset();
     })
   }
@@ -116,17 +119,18 @@ const Womenadd = () => {
                 back
               </button>
             </Link>
-            <button
-              id="upload"
-              className="text-capitalize upload-button shine-effect"
-              type="submit"
-              
-            >
+              <button
+                id="upload"
+                className="text-capitalize upload-button shine-effect"
+                type="submit"
+                
+              >
               <IoMdCloudUpload /> upload
             </button>
           </div>
         </form>
       </div>
+      <ToastContainer/>
     </div>
   );
 };

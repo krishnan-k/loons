@@ -16,12 +16,12 @@ import Womendashboard from "./Admin/Womendashboard";
 import Mendashboard from "./Admin/Mendashboard";
 import Kidsdashboard from "./Admin/Kidsdashboard";
 import Menedit from "./Admin/Menedit";
-import Menadd from "./Admin/Menedit";
+import Menadd from "./Admin/Menadd";
 import Womenadd from "./Admin/Womenadd";
 import Womenedit from "./Admin/Womenedit";
 import Kidsedit from "./Admin/Kidsedit";
 import Kidsadd from "./Admin/Kidsadd";
-import Cartdrawer from "./pages/Cartdrawer";
+// import Cartdrawer from "./pages/Cartdrawer";
 function App() {
   return (
     <div> 
@@ -38,7 +38,7 @@ function App() {
           <Route path="/admin/womendashboard" element={<Womendashboard/>}/>
           <Route path="/admin/mendashboard" element={<Mendashboard/>}/>
           <Route path="/admin/kidsdashboard" element={<Kidsdashboard />}/>
-          <Route path="/admin/womenedit" element={<Womenedit/>}/>
+          <Route path="/admin/womenedit/:id" element={<Womenedit/>} loader={({params}) => fetch(`http://localhost:5000/women/${params.id}`)}/>
           <Route path="/admin/womenadd" element={<Womenadd/>}/>
           <Route path="/admin/menedit" element={<Menedit/>}/>
           <Route path="/admin/menadd" element={<Menadd/>}/>
