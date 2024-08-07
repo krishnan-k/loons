@@ -149,3 +149,6 @@ textarea::placeholder {
 .pannel .editdashboard input[type="text"]:focus, textarea:focus {
   box-shadow: #00b0b5 0px 0px 0px 1px;
 }
+.pannel table.table td img {
+  width: 150px;
+}
