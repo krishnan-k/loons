@@ -47,7 +47,7 @@ export const Navbar = () => {
                 >
                   women
                 </Link>
-                <div className="megamenu-section">
+                {/* <div className="megamenu-section">
                   <div className="megamenu-content container p-3">
                     <div className="mega-content">
                       <div className="mega-menu">
@@ -520,7 +520,7 @@ export const Navbar = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </li>
               <li className="nav-item">
                 <Link

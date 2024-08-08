@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -12,10 +12,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteCart } from "../store/Cartslice";
 import { Link } from "react-router-dom";
 export const Cardcollection = () => {
-  // const autoplay = {
-  //   delay: 5000,
-  //   disableOnInteraction: false,
-  // }
+  const [bunndleProduct, setBundle] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/getwomen`)
+      .then(res => res.json())
+      .then((data) => setBundle(data))
+  }, []);
   const product = useSelector(state =>
     state.cart.cartItems
   )
@@ -41,14 +44,13 @@ export const Cardcollection = () => {
           modules={[Navigation]}
           slidesPerView={4}
           spaceBetween={30}
-          loop={false}
           
         >
-          {dealDayProduct.map((item) => (
+          {bunndleProduct.map((item) => (
             <SwiperSlide>
-              <div className="card border-0 card-product" key={item.id}>
+              <div className="card border-0 card-product" key={item._id}>
                 <div className="product-image">
-                  <img src={item.image} alt="image" />
+                  <img src={item.productImg} alt="image" />
                   <div className="add-to-cart-button">  
                     {product.find(items => items.id === item.id)
                     ? <div className="add">
@@ -70,10 +72,10 @@ export const Cardcollection = () => {
                       </span>
                     </div>
                   </div>
-                  <h5 class="card-title text-uppercase mb-1">{item.title}</h5>
-                  <p class="card-text mb-1">{item.description}</p>
+                  <h5 class="card-title text-uppercase mb-1">{item.productTitle}</h5>
+                  <p class="card-text mb-1">{item.productDesc}</p>
                   <p className="product_price mb-0">
-                    ₹{item.price}
+                    ₹{item.productPrice}
                     <span className="product_price text-decoration-line-through text-black-50 fw-bolder">
                       ₹{item.comparePrice}
                     </span>

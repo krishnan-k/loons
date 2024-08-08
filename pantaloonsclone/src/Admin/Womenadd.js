@@ -130,7 +130,7 @@ const Womenadd = () => {
           </div>
         </form>
       </div>
-      <ToastContainer/>
+      <ToastContainer autoClose={1000}/>
     </div>
   );
 };

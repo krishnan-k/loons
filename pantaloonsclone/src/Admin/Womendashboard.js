@@ -22,7 +22,7 @@ const Womendashboard = () => {
       .then((data) => {
         toast.error('Delete Successfully');
         setProductItems(previousData => previousData.filter(item => item._id !== id));
-      })
+      })  
   }
   return (
     <div className="pannel">
@@ -73,7 +73,7 @@ const Womendashboard = () => {
           </tbody>
         </table>
       </div>
-      <ToastContainer/>
+      <ToastContainer autoClose={1000}/>
     </div>
   );
 };

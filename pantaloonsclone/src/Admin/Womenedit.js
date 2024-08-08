@@ -11,7 +11,7 @@ const Womenedit = () => {
       productTitle: '',
       productPrice: '',
       productImg: '',
-      productDesc:''
+      productDesc: ''
     }
   )
   useEffect(()=>{
@@ -21,6 +21,7 @@ const Womenedit = () => {
   })
 
   const handleSubmit = (e) =>{
+    e.preventDefault();
     const form = e.target
     const productTitle = form.productTitle.value
     const productPrice = form.productPrice.value
@@ -43,7 +44,7 @@ const Womenedit = () => {
     })
     .then((res) => res.json())
     .then((data) => {
-      toast.success('Product added successfully')
+      toast.success('Product updated successfully')
       window.location.href="/admin/womendashboard"
     }
     )

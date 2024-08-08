@@ -62,16 +62,27 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/getmen", async(req,res)=>{
+    app.get("/getmen", async (req, res) => {
       const product = await menCollection.find().toArray();
       res.send(product);
     })
-    app.get("/men/:id", async(req,res)=>{
+    app.get("/men/:id", async (req, res) => {
       const id = req.params.id;
-      const filter = {_id: new ObjectId(id)}
+      const filter = { _id: new ObjectId(id) }
       const result = await menCollection.findOne(filter);
       res.send(result);
     });
+
+    app.get("/getkids", async (req, res) => {
+      const product = await kidsCollection.find().toArray();
+      res.send(product);
+    })
+    app.get("/kids/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const result = await kidsCollection.findOne(filter)
+      res.send(result);
+    })
 
 
 
@@ -97,19 +108,38 @@ async function run() {
       res.send(result);
     });
 
-    app.patch("/menupdate/:id", async(req, res)=>{
+    app.patch("/menupdate/:id", async (req, res) => {
       const id = req.params.id;
-      const filter = {_id: new ObjectId(id)}
+      const filter = { _id: new ObjectId(id) }
       const data = req.body
 
       const updateData = {
-        $set:{
+        $set: {
           ...data
         }
       }
 
-      const option = {upsert: true}
+      const option = { upsert: true }
       const result = await menCollection.updateOne(
+        filter,
+        updateData,
+        option
+      )
+      res.send(result);
+    })
+
+    app.patch("/kidsupdate/:id", async (req, res) => {
+      const id = req.params.id
+      const filter = { _id: new ObjectId(id) }
+      const data = req.body
+
+      const updateData = {
+        $set: {
+          ...data
+        }
+      }
+      const option = { upsert: true }
+      const result = await kidsCollection.updateOne(
         filter,
         updateData,
         option
@@ -125,11 +155,18 @@ async function run() {
       res.send(result);
     });
 
-    app.delete("/menupdate/:id", async (req, res)=>{
+    app.delete("/menupdate/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const result = await menCollection.deleteOne(filter);
-      res.send(result); 
+      res.send(result);
+    })
+
+    app.delete("/kidsupdate/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const result = await kidsCollection.deleteOne(filter);
+      res.send(result);
     })
 
     // Send a ping to confirm a successful connection

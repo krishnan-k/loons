@@ -40,9 +40,9 @@ function App() {
           <Route path="/admin/kidsdashboard" element={<Kidsdashboard />}/>
           <Route path="/admin/womenedit/:id" element={<Womenedit/>} loader={({params}) => fetch(`http://localhost:5000/women/${params.id}`)}/>
           <Route path="/admin/womenadd" element={<Womenadd/>}/>
-          <Route path="/admin/menedit" element={<Menedit/>}/>
+          <Route path="/admin/menedit/:id" element={<Menedit/>} loader={({params}) => fetch(`http://localhost:5000/men/${params.id}`)}/>
           <Route path="/admin/menadd" element={<Menadd/>}/>
-          <Route path="/admin/kidsedit" element={<Kidsedit/>}/>
+          <Route path="/admin/kidsedit/:id" element={<Kidsedit/>} loader={({params}) => fetch(`http://localhost:5000/kids/${params.id}`)}/>
           <Route path="/admin/kidsadd" element={<Kidsadd/>}/>
           <Route path="brand" element={<Brandpage />} />
           <Route path="account" element={<Account />} />

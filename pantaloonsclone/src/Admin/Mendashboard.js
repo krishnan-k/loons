@@ -59,7 +59,7 @@ const Mendashboard = () => {
                 <td>{item.productTitle}</td>
                 <td>{item.productPrice}</td>
                 <th>
-                  <Link to="/admin/menedit" className="text-decoration-none">
+                  <Link to={`/admin/menedit/${item._id}`} className="text-decoration-none">
                     <button
                       type="button"
                       className="button text-capitalize edit-button shine-effect"
@@ -82,7 +82,7 @@ const Mendashboard = () => {
           </tbody>
         </table>
       </div>
-      <ToastContainer/>
+      <ToastContainer autoClose={1000}/>
     </div>
   );
 };

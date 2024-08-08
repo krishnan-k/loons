@@ -3,39 +3,69 @@ import { Link } from "react-router-dom";
 import Admin from "./Admin";
 import { FaBackspace } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
+import { toast, ToastContainer } from "react-toastify";
 const Kidsadd = () => {
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    const form = e.target
+    const productTitle = form.productTitle.value
+    const productPrice = form.productPrice.value
+    const productImg = form.productImg.value
+    const productDesc = form.productDesc.value
+
+    if(productTitle==='' || productPrice==='' || productImg==='' || productDesc===''){
+      toast.error('fill the all fields')
+      return
+    }
+
+    const productObject ={productTitle,productPrice,productImg,productDesc}
+    console.log(productObject)
+
+    fetch("http://localhost:5000/kids",{
+      method: 'POST',
+      headers:{
+        'Content-Type' : 'Application/json'
+      },
+      body:JSON.stringify(productObject)
+    })
+    .then((res) => res.json())
+    .then((data) =>{
+      toast.success('Product Added Successfully')
+      form.reset();
+    })
+  }
   return (
     <div className="pannel">
       <Admin />
       <div className="form-control-section">
-        <form className="editdashboard">
+        <form className="editdashboard" onSubmit={handleSubmit}>
           <div className="form_title mb-3">
-            <label className="text-capitalize" for="title">
+            <label value="productTitle" className="text-capitalize">
               Title
             </label>
             <input
               className="text-capitalize"
               type="text"
-              id="title"
-              name="title"
+              id="productTitle"
+              name="productTitle"
               placeholder="add your title here"
             />
           </div>
           <div className="form_price mb-3">
             <div className="original_price">
-              <label className="text-capitalize" for="price">
+              <label value="productPrice" className="text-capitalize">
                 price
               </label>
               <input
                 className="text-capitalize"
                 type="text"
-                id="price"
-                name="price"
+                id="productPrice"
+                name="productPrice"
                 placeholder="price"
               />
             </div>
             <div className="compare_price">
-              <label className="text-capitalize" for="price">
+              <label className="text-capitalize">
                 compare price
               </label>
               <input
@@ -48,24 +78,25 @@ const Kidsadd = () => {
             </div>
           </div>  
           <div className="form_image mb-3">
-            <label className="text-capitalize" for="image">
+            <label value="productImg" className="text-capitalize">
               Image url
             </label>
             <input
               className="text-capitalize"
               type="text"
-              id="image"
-              name="image"
+              id="productImg"
+              name="productImg"
               placeholder="add your Img url here"
             />
           </div>
           <div className="form_description mb-3">
-            <label className="text-capitalize" for="image">
+            <label value="productDesc" className="text-capitalize">
               Description
             </label>
             <textarea
               className="text-capitalize"
-              id="title_description"
+              id="productDesc"
+              text="productDesc"
               placeholder="enter your description"
             ></textarea>
           </div>
@@ -90,6 +121,7 @@ const Kidsadd = () => {
           </div>
         </form>
       </div>
+      <ToastContainer autoClose={1000}/>
     </div>
   );
 };
