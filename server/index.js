@@ -3,9 +3,22 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
 //Connect to frontend and backend using cors middleware
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const storage = multer.diskStorage({
+  destination:(req, file, cb)=>{
+    cb(null, 'uploads/');
+  },
+  filename:(req,file,cb)=>{
+    cb(null,`${Date.now()} - ${file.originalname}`);
+  }
+});
+
+const upload = multer({storage});
 
 app.get('/', (req, res) => {
   res.send('Hello world');
@@ -49,6 +62,36 @@ async function run() {
       const result = await kidsCollection.insertOne(data);
       res.send(result);
     });
+
+
+    app.post('/upload/img', upload.single('img'), async(req,res)=>{
+      try{
+        const {productTitle,productPrice,productImg,productDesc,quantity} = req.body
+        const imgPath = req.file ? `/uploads/${req.file.filename}` : productImg
+
+        const productObject = {
+          productTitle,
+          productPrice,
+          productImg: imgPath,
+          productDesc,
+          quantity
+        };
+        const result = await womenCollection.insertOne(productObject);
+        res.send(result)
+      }
+      catch(error){
+        res.status(500).send({message: 'Error aadding food'});
+      }
+    })
+
+    //end pointing for upload image
+    app.post('/upload-image', upload.single('image'), async(req,res)=>{
+      if(!req.file){
+        return res.status(400).send('No file uploaded')
+      }
+      const imageUrl = `/uploads/${req.file.filename}`;
+      res.send({imageUrl});
+    })
 
     //get method
     app.get("/getwomen", async (req, res) => {

@@ -95,7 +95,7 @@ const Womenedit = () => {
               />
             </div>
           </div>
-          <div className="form_image mb-3">
+          {/* <div className="form_image mb-3">
             <label value="productImg" className="text-capitalize">
               Image url
             </label>
@@ -105,17 +105,22 @@ const Womenedit = () => {
               id="productImg"
               name="productImg"
               placeholder="add your Img url here"
-              defaultValue={productItems.productImg}
+              
             />
+            <label value="img" className="text-capitalize">
+              Image url
+            </label>
             <input
               className="text-capitalize input-file"
               type="file"
-              id="productImg"
-              name="productImg"
+              id="img"
+              name="img"
+              accept="image/*"
+              onChange={handleFileChange}
               placeholder="add your Img url here"
-              defaultValue={productItems.productImg}
+              
             />
-          </div>
+          </div> */}
           <div className="form_description mb-3">
             <label value="productDesc" className="text-capitalize">
               Description

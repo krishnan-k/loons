@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
   import { Link } from "react-router-dom";
 import Admin from "./Admin";
 import { FaBackspace } from "react-icons/fa";
@@ -8,21 +8,33 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Womenadd = () => {
+  const [file, setFile] = useState(null)
+  const handleFileChange = (e) =>{
+    setFile(e.target.files[0]);
+  };
+
   const handleSubmit = (e) =>{
     e.preventDefault();
     const form = e.target;
+    const formData = new FormData();
     const productTitle = form.productTitle.value
     const productPrice = form.productPrice.value
     const productImg = form.productImg.value
     const productDesc = form.productDesc.value
     const quantity = 1
 
-    if(productTitle ==="" || productPrice === "" || productImg === "" || productDesc === ""){
-      toast.error("Fill the all fields");
-      return
-    }
+    // if(productTitle ==="" || productPrice === "" || productDesc === ""){
+    //   toast.error("Fill the all fields");
+    //   return
+    // }
 
-    const productObject ={productTitle, productPrice, productImg, productDesc, quantity}
+    formData.append('productTitle', productTitle)
+    formData.append('productPrice', productPrice)
+    formData.append('productDesc', productDesc)
+    formData.append('productImg', productImg)
+    formData.append('img', file)
+
+    const productObject ={productTitle, productPrice, productImg, productDesc,quantity}
     console.log(productObject);
 
     fetch("http://localhost:5000/women",{
@@ -95,11 +107,18 @@ const Womenadd = () => {
               placeholder="add your Img url here"
               
             />
+            </div>
+            <div>
+            <label value="img" className="text-capitalize">
+              Image url
+            </label>
             <input
               className="text-capitalize input-file"
               type="file"
-              id="productImg"
-              name="productImg"
+              id="img"
+              name="img"
+              accept="image/*"
+              onChange={handleFileChange}
               placeholder="add your Img url here"
               
             />
