@@ -90,7 +90,7 @@ export const Cart = () => {
                     <button
                       type="button"
                       className="quantity_button"
-                      onClick={() => DecrementQuantity(item.id, item.quantity)}
+                      onClick={() => DecrementQuantity(item._id, item.quantity)}
                     >
                       <FaMinus />
                     </button>
@@ -98,7 +98,7 @@ export const Cart = () => {
                     <button
                       type="button"
                       className="quantity_button"
-                      onClick={() => IncrementQuantity(item.id, item.quantity)}
+                      onClick={() => IncrementQuantity(item._id, item.quantity)}
                     >
                       <FaPlus />
                     </button>

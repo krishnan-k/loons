@@ -11,7 +11,7 @@
 
 .admin_pannel_dashboard {
   max-width: 400px;
-  background: #263544;
+  background: #081028;
   height: 100vh;
 }
 
@@ -151,4 +151,12 @@ textarea::placeholder {
 }
 .pannel table.table td img {
   width: 165px;
+}
+.admin-main-pannel,.admin-main-pannel .admin-image{
+  display: flex;
+}
+.admin-main-pannel .admin-image img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
 }

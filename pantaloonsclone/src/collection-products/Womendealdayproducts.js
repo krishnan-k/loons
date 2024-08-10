@@ -15,7 +15,8 @@ const womenDealDayProduct = [
         title: "indus route",
         description: "Blue Solid Casual Men Regular Fit Kurtas",
         price: "824",
-        comparePrice:"1099"
+        comparePrice:"1099",
+        quantity: 1
     },
     {
         id: 138,
@@ -23,7 +24,8 @@ const womenDealDayProduct = [
         title: "rangmanch",
         description: "Peach Printed Athleisure Half Sleeves Round Neck Women Regular",
         price: "719",
-        comparePrice:"899"
+        comparePrice:"899",
+        quantity: 1
     },
     {
         id: 139,
@@ -31,7 +33,8 @@ const womenDealDayProduct = [
         title: "people",
         description: "Medium Blue Textured Casual Half Sleeves Polo Collar Men Slim",
         price: "655",
-        comparePrice:"799"
+        comparePrice:"799",
+        quantity: 1
     },
     {
         id: 140,
@@ -39,7 +42,8 @@ const womenDealDayProduct = [
         title: "bare denim",
         description: "White Printed Party Full Sleeves Shirt Collar Men Slim Fit",
         price: "594",
-        comparePrice:"699"
+        comparePrice:"699",
+        quantity: 1
     },
     {
         id: 141,
@@ -47,7 +51,8 @@ const womenDealDayProduct = [
         title: "rangmanch",
         description: "Yellow Print Casual V Neck 3/4th Sleeves Knee Length Women",
         price: "629",
-        comparePrice:"899"
+        comparePrice:"899",
+        quantity: 1
     },
     {
         id: 142,
@@ -55,7 +60,8 @@ const womenDealDayProduct = [
         title: "Street 808",
         description: "Medium Grey Solid Full Length Casual Men Regular Fit Joggers",
         price: "749",
-        comparePrice:"999"
+        comparePrice:"999",
+        quantity: 1
     },
     {
         id: 143,
@@ -63,7 +69,8 @@ const womenDealDayProduct = [
         title: "Ajile",
         description: "Pink Printed Full Length Mid Rise Casual Women Jogger Track Pants",
         price: "679",
-        comparePrice:"799"
+        comparePrice:"799",
+        quantity: 1
     },
     {
         id: 144,
@@ -71,7 +78,8 @@ const womenDealDayProduct = [
         title: "Marigold Lane",
         description: "Yellow Embroidered Ethnic 3/4th Sleeves Square Neck Women Flared Fit  Kurta Gharara Dupatta Set",
         price: "629",
-        comparePrice:"699"
+        comparePrice:"699",
+        quantity: 1
     },
     {
         id: 145,
@@ -79,7 +87,8 @@ const womenDealDayProduct = [
         title: "Street 808",
         description: "Yellow Embroidered Ethnic 3/4th Sleeves Square Neck Women Flared Fit  Kurta Gharara Dupatta Set",
         price: "749",
-        comparePrice:"859"
+        comparePrice:"859",
+        quantity: 1
     }
 ]
 export default womenDealDayProduct;
