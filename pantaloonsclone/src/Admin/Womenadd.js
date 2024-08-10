@@ -95,6 +95,14 @@ const Womenadd = () => {
               placeholder="add your Img url here"
               
             />
+            <input
+              className="text-capitalize input-file"
+              type="file"
+              id="productImg"
+              name="productImg"
+              placeholder="add your Img url here"
+              
+            />
           </div>
           <div className="form_description mb-3">
             <label value="productDesc" className="text-capitalize">

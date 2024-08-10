@@ -35,7 +35,7 @@ export const Cart = () => {
     }
   };
   // const totalQuantity = product.reduce((total,item) => total + (item.quantity),0);
-  const totalAmout = product.reduce((total, item) => total + (item.price*item.quantity),0);
+  //const totalAmout = product.reduce((total, item) => total + (item.price*item.quantity),0);
   return (
     <div className="container-fluid cart-page">
       <div className="empty-cart-page text-center pt-5 pb-2 mt-3 mb-1">
@@ -60,10 +60,10 @@ export const Cart = () => {
             {product.map((item) => (
               <div
                 className="card border-0 cart-product mt-4 mb-4"
-                key={item.id}
+                key={item._id}
               >
                 <div className="product-image">
-                  <img src={item.image} alt="image" />
+                  <img src={item.productImg} alt="image" />
                 </div>
                 <div class="card-body text-start">
                   <div className="offer-tag">
@@ -77,10 +77,10 @@ export const Cart = () => {
                       </span>
                     </div>
                   </div>
-                  <h5 class="card-title text-uppercase mb-1">{item.title}</h5>
-                  <p class="card-text mb-1">{item.description}</p>
+                  <h5 class="card-title text-uppercase mb-1">{item.productTitle}</h5>
+                  <p class="card-text mb-1">{item.productDesc}</p>
                   <p className="product_price mb-0">
-                    ₹{item.price}
+                    ₹{item.productPrice}
                     <span className="product_price text-decoration-line-through text-black-50 fw-bolder">
                       ₹{item.comparePrice}
                     </span>

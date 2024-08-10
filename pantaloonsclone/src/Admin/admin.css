@@ -160,3 +160,18 @@ textarea::placeholder {
   object-fit: cover;
   height: 100%;
 }
+
+input.input-file::file-selector-button {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 36px;
+  border-radius: 5px;
+  background: #18c985;
+  cursor: pointer;
+}

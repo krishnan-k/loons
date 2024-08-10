@@ -6,7 +6,6 @@ import { IoBagHandleOutline } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
 import { useSelector } from "react-redux";
 export const Navbar = () => {
-  const product = useSelector((state) => state.cart.cartItems);
   const headerNavigation = document.querySelector(".navbar_section");
   if (headerNavigation) {
     const navigationContent =
@@ -15,16 +14,16 @@ export const Navbar = () => {
       navigationContent.classList.add("active");
     });
   }
-  const totalAmout = product.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const product = useSelector(state => state.cart.cartItems);
+  const totalQuantity = product.reduce((total,item) => total + (item.quantity), 0)
+  const totalAmout = product.reduce((total, item) => total + (item.productPrice * item.quantity),0);
   return (
     <div id="navbarsection" className="navbar_section">
       <nav className="navbar navbar-expand-lg container">
         <div className="container-fluid p-0">
           <Link className="navbar-brand" to="/">
             <img src={logo} />
+            
           </Link>
           <button
             className="navbar-toggler"
@@ -581,7 +580,7 @@ export const Navbar = () => {
         <div className="cart-icon ms-4 me-0">
           <Link to="cart" className="cart">
             <IoBagHandleOutline />
-            <div className="product-count">{product.length}</div>
+            <div className="product-count">{totalQuantity}</div>
           </Link>
 
           <div className="cart_total ms-2">
