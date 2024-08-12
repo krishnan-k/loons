@@ -50,7 +50,7 @@ export const Cardcollection = () => {
             <SwiperSlide>
               <div className="card border-0 card-product" key={item._id}>
                 <div className="product-image">
-                  <img src={item.productImg} alt="image" />
+                <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle}/>
                   <div className="add-to-cart-button">  
                     {product.find(items => items._id === item._id)
                     ? <div className="add">

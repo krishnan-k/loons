@@ -5,20 +5,24 @@ const port = process.env.PORT || 5000;
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+
 //Connect to frontend and backend using cors middleware
 app.use(cors());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Multer storage configuration
 const storage = multer.diskStorage({
-  destination:(req, file, cb)=>{
+  destination: (req, file, cb) => {
     cb(null, 'uploads/');
   },
-  filename:(req,file,cb)=>{
-    cb(null,`${Date.now()} - ${file.originalname}`);
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()} - ${file.originalname}`);
   }
 });
 
-const upload = multer({storage});
+// Multer instance
+const upload = multer({ storage });
+
 
 app.get('/', (req, res) => {
   res.send('Hello world');
@@ -47,11 +51,12 @@ async function run() {
 
 
     //post method
-    app.post("/women", async (req, res) => {
-      const data = req.body;
-      const result = await womenCollection.insertOne(data);
-      res.send(result);
-    });
+    // app.post("/women", async (req, res) => {
+    //   const data = req.body;
+    //   const result = await womenCollection.insertOne(data);
+    //   res.send(result);
+    // });
+
     app.post("/men", async (req, res) => {
       const data = req.body;
       const result = await menCollection.insertOne(data);
@@ -64,10 +69,10 @@ async function run() {
     });
 
 
-    app.post('/upload/img', upload.single('img'), async(req,res)=>{
+    app.post('/women', upload.single('img'), async(req,res)=>{
       try{
-        const {productTitle,productPrice,productImg,productDesc,quantity} = req.body
-        const imgPath = req.file ? `/uploads/${req.file.filename}` : productImg
+        const {productTitle,productPrice,productImg,productDesc,quantity} = req.body;
+        const imgPath = req.file ? `/uploads/${req.file.filename}`: productImg
 
         const productObject = {
           productTitle,
@@ -89,7 +94,7 @@ async function run() {
       if(!req.file){
         return res.status(400).send('No file uploaded')
       }
-      const imageUrl = `/uploads/${req.file.filename}`;
+      const imageUrl = `/uploads/${req.file.filename}`
       res.send({imageUrl});
     })
 

@@ -5,6 +5,7 @@ import { FaBackspace } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 
 const Womenadd = () => {
@@ -13,7 +14,7 @@ const Womenadd = () => {
     setFile(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData();
@@ -23,10 +24,10 @@ const Womenadd = () => {
     const productDesc = form.productDesc.value
     const quantity = 1
 
-    // if(productTitle ==="" || productPrice === "" || productDesc === ""){
-    //   toast.error("Fill the all fields");
-    //   return
-    // }
+    if(productTitle ==="" || productPrice === "" || productDesc === ""){
+      toast.error("Fill the all fields");
+      return
+    }
 
     formData.append('productTitle', productTitle)
     formData.append('productPrice', productPrice)
@@ -35,21 +36,39 @@ const Womenadd = () => {
     formData.append('quantity', quantity);
     formData.append('img', file)
 
+    try{
+      const response = await axios.post('http://localhost:5000/women', formData,{
+        headers:{
+          'Content-Type' : 'multipart/form-data'
+        }
+      });
+      if(response.data.insertedId){
+        toast.success("Product added successfully");
+        form.reset();
+      }
+      else{
+        toast.error("Error adding product");
+      }
+    }catch(error){
+      toast.error('Error uploading file')
+      console.error("Error:", error);
+    }
+
     const productObject = { productTitle, productPrice, productImg, productDesc, quantity }
     console.log(productObject);
 
-    fetch("http://localhost:5000/women", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(productObject)
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        toast.success('Product added successfully')
-        form.reset();
-      })
+    // fetch("http://localhost:5000/women", {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(productObject)
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     toast.success('Product added successfully')
+    //     form.reset();
+    //   })
   }
   return (
     <div className="pannel">
@@ -115,6 +134,7 @@ const Womenadd = () => {
             </label>
             <input
               className="text-capitalize input-file"
+              filename={file}
               type="file"
               id="img"
               name="img"
