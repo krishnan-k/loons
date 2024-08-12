@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-  import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Admin from "./Admin";
 import { FaBackspace } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
-import {toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 const Womenadd = () => {
   const [file, setFile] = useState(null)
-  const handleFileChange = (e) =>{
+  const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData();
@@ -32,23 +32,24 @@ const Womenadd = () => {
     formData.append('productPrice', productPrice)
     formData.append('productDesc', productDesc)
     formData.append('productImg', productImg)
+    formData.append('quantity', quantity);
     formData.append('img', file)
 
-    const productObject ={productTitle, productPrice, productImg, productDesc,quantity}
+    const productObject = { productTitle, productPrice, productImg, productDesc, quantity }
     console.log(productObject);
 
-    fetch("http://localhost:5000/women",{
+    fetch("http://localhost:5000/women", {
       method: 'POST',
-      headers:{
-        'Content-Type':'application/json'
+      headers: {
+        'Content-Type': 'application/json'
       },
-      body:JSON.stringify(productObject)
+      body: JSON.stringify(productObject)
     })
-    .then((res) => res.json())
-    .then((data) =>{
-      toast.success('Product added successfully')
-      form.reset();
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success('Product added successfully')
+        form.reset();
+      })
   }
   return (
     <div className="pannel">
@@ -64,7 +65,7 @@ const Womenadd = () => {
               type="text"
               id="productTitle"
               name="productTitle"
-              placeholder="add your title here" 
+              placeholder="add your title here"
             />
           </div>
           <div className="form_price mb-3">
@@ -78,7 +79,7 @@ const Womenadd = () => {
                 id="productPrice"
                 name="productPrice"
                 placeholder="price"
-                
+
               />
             </div>
             <div className="compare_price">
@@ -91,7 +92,7 @@ const Womenadd = () => {
                 id="price"
                 name="price"
                 placeholder="compare price"
-        
+
               />
             </div>
           </div>
@@ -105,10 +106,10 @@ const Womenadd = () => {
               id="productImg"
               name="productImg"
               placeholder="add your Img url here"
-              
+
             />
-            </div>
-            <div>
+          </div>
+          <div>
             <label value="img" className="text-capitalize">
               Image url
             </label>
@@ -117,10 +118,9 @@ const Womenadd = () => {
               type="file"
               id="img"
               name="img"
-              accept="image/*"
-              onChange={handleFileChange}
+              accept="image/*" onChange={handleFileChange}
               placeholder="add your Img url here"
-              
+
             />
           </div>
           <div className="form_description mb-3">
@@ -132,7 +132,7 @@ const Womenadd = () => {
               id="productDesc"
               name="productDesc"
               placeholder="enter your description"
-              
+
             ></textarea>
           </div>
           <div className="editable-buttons">
@@ -146,18 +146,18 @@ const Womenadd = () => {
                 back
               </button>
             </Link>
-              <button
-                id="upload"
-                className="text-capitalize upload-button shine-effect"
-                type="submit"
-                
-              >
+            <button
+              id="upload"
+              className="text-capitalize upload-button shine-effect"
+              type="submit"
+
+            >
               <IoMdCloudUpload /> upload
             </button>
           </div>
         </form>
       </div>
-      <ToastContainer autoClose={1000}/>
+      <ToastContainer autoClose={1000} />
     </div>
   );
 };
