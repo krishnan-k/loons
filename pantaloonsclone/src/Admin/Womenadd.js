@@ -29,6 +29,8 @@ const Womenadd = () => {
       return
     }
 
+   
+    
     formData.append('productTitle', productTitle)
     formData.append('productPrice', productPrice)
     formData.append('productDesc', productDesc)
@@ -36,10 +38,12 @@ const Womenadd = () => {
     formData.append('quantity', quantity);
     formData.append('img', file)
     const productObject = { productTitle, productPrice, productImg, productDesc, quantity }
+    console.log(productObject); 
+    
     try{
       const response = await axios.post('http://localhost:5000/women', formData,{
         headers:{
-          'Content-Type' : 'multipart/form-data'
+          'Content-Type' : 'application/form-data'
         },
         body: JSON.stringify(productObject)
       });
@@ -96,7 +100,7 @@ const Womenadd = () => {
               </label>
               <input
                 className="text-capitalize"
-                type="text"
+                type="number"
                 id="productPrice"
                 name="productPrice"
                 placeholder="price"
@@ -109,7 +113,7 @@ const Womenadd = () => {
               </label>
               <input
                 className="text-capitalize"
-                type="text"
+                type="number"
                 id="price"
                 name="price"
                 placeholder="compare price"

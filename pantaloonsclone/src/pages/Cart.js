@@ -15,21 +15,21 @@ export const Cart = () => {
     dispatch(deleteCart(item));
   };
   const IncrementQuantity = (id, quantity) => {
-      // if (typeof quantity !== "number") {
-      //   quantity = 1;
-      // }
-    if(quantity === ''){
-      quantity = 1;
-    }
+    //   if (typeof quantity !== "number") {
+    //     quantity = 1;
+    //   }
+    // if(quantity === ''){
+    //   parseInt(quantity, 1);
+    // }
     dispatch(updateQuantity({ id, quantity : quantity + 1 }));
   };
   const DecrementQuantity = (id, quantity) => {
     // if (typeof quantity !== "number") {
     //   quantity = 1;
     // }
-    if(quantity === ''){
-      quantity = 1;
-    }
+    // if(quantity === ''){
+    //   parseInt(quantity, 1);
+    // }
     if (quantity > 1) {
       dispatch(updateQuantity({ id, quantity : quantity - 1 }));
     }

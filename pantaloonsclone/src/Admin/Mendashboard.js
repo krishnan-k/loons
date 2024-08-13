@@ -45,17 +45,17 @@ const Mendashboard = () => {
         <table className="table">
           <thead>
             <tr>
-              <th className="text-capitalize">Image</th>
-              <th className="text-capitalize">title</th>
-              <th className="text-capitalize">price</th>
-              <th className="text-capitalize">edit</th>
-              <th className="text-capitalize">delete</th>
+              <td className="text-capitalize">Image</td>
+              <td className="text-capitalize">title</td>
+              <td className="text-capitalize">price</td>
+              <td className="text-capitalize">edit</td>
+              <td className="text-capitalize">delete</td>
             </tr>
           </thead>
           <tbody>
             {productItems.map((item) => (
               <tr key={item._id}>
-                <th><img src={item.productImg}/></th>
+                <td><img src={item.productImg}/></td>
                 <td>{item.productTitle}</td>
                 <td>{item.productPrice}</td>
                 <th>

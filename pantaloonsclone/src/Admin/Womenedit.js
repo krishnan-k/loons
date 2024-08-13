@@ -11,9 +11,14 @@ const Womenedit = () => {
       productTitle: '',
       productPrice: '',
       productImg: '',
+      img:'',
       productDesc: ''
     }
   )
+  const [file,setFile] = useState(null)
+  const handleFileChange = (e) =>{
+    setFile(e.target.files[0]);
+  }
   useEffect(()=>{
     fetch(`http://localhost:5000/women/${id}`)
     .then((res) => res.json())
@@ -27,18 +32,28 @@ const Womenedit = () => {
     const productPrice = form.productPrice.value
     const productImg = form.productImg.value
     const productDesc = form.productDesc.value
+    const quantity = 1
+    const formData = new FormData();
 
     if (productTitle === '' || productPrice === '' || productImg === '' || productDesc === ''){
       toast.error("Fill the all fields")
       return
     }
-    const productObject = {productTitle,productPrice, productImg, productDesc}
-    console.log(productObject);
 
-    fetch(`http://localhost:5000/update/${id}`,{
+    formData.append('productTitle', productTitle)
+    formData.append('productPrice', productPrice)
+    formData.append('productDesc', productDesc)
+    formData.append('productImg', productImg)
+    formData.append('quantity', quantity)
+    formData.append('img', file)
+
+    const productObject = {productTitle,productPrice, productImg, productDesc, quantity}
+
+
+    fetch(`http://localhost:5000/update/${id}`,formData, {
       method: 'PATCH',
       headers:{
-        'Content-Type' : 'application/json'
+        'Content-Type' : 'application/form-data'
       },
       body:JSON.stringify(productObject)
     })
@@ -54,7 +69,7 @@ const Womenedit = () => {
     <div className="pannel">
       <Admin />
       <div className="form-control-section">
-        <form className="editdashboard" onSubmit={handleSubmit}>
+        <form className="editdashboard" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form_title mb-3">
             <label value="productTitle" className="text-capitalize">
               Title
@@ -75,7 +90,7 @@ const Womenedit = () => {
               </label>
               <input
                 className="text-capitalize"
-                type="text"
+                type="number"
                 id="productPrice"
                 name="productPrice"
                 placeholder="price"
@@ -88,14 +103,14 @@ const Womenedit = () => {
               </label>
               <input
                 className="text-capitalize"
-                type="text"
+                type="number"
                 id="price"
                 name="price"
                 placeholder="compare price"
               />
             </div>
           </div>
-          {/* <div className="form_image mb-3">
+          <div className="form_image mb-3">
             <label value="productImg" className="text-capitalize">
               Image url
             </label>
@@ -105,6 +120,7 @@ const Womenedit = () => {
               id="productImg"
               name="productImg"
               placeholder="add your Img url here"
+              defaultValue={productItems.productImg}
               
             />
             <label value="img" className="text-capitalize">
@@ -118,9 +134,10 @@ const Womenedit = () => {
               accept="image/*"
               onChange={handleFileChange}
               placeholder="add your Img url here"
+              defaultValue={productItems.img}
               
             />
-          </div> */}
+          </div>
           <div className="form_description mb-3">
             <label value="productDesc" className="text-capitalize">
               Description

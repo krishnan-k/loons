@@ -80,7 +80,8 @@
   margin: 30px;
 }
 
-.pannel .editdashboard input[type="text"], textarea {
+.pannel input[type="text"],
+.pannel input[type="number"], textarea {
   width: 100%;
   padding: 8px;
   border-radius: 5px;
@@ -88,7 +89,9 @@
   border: none;
   transition: box-shadow 0.3s linear;
 }
-.pannel .editdashboard input[type="text"]:focus-visible, textarea:focus-visible {
+.pannel .editdashboard input[type="text"]:focus-visible,
+.pannel .editdashboard input[type="number"]:focus-visible,
+ textarea:focus-visible {
   outline: none;
 }
 .pannel .editdashboard .form_description textarea {
@@ -146,8 +149,9 @@ textarea::placeholder {
 .pannel .editdashboard label {
   font-size: 14px;
 }
-.pannel .editdashboard input[type="text"]:focus, textarea:focus {
-  box-shadow: #00b0b5 0px 0px 0px 1px;
+.pannel .editdashboard input[type="text"]:focus,
+.pannel .editdashboard input[type="number"]:focus, textarea:focus {
+  box-shadow: 0 0 0 .15rem #00b0b52e;
 }
 .pannel table.table td img {
   width: 165px;

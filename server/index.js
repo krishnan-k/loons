@@ -67,6 +67,7 @@ async function run() {
       const result = await kidsCollection.insertOne(data);
       res.send(result);
     });
+    
 
 
     app.post('/women', upload.single('img'), async(req,res)=>{
@@ -88,7 +89,6 @@ async function run() {
         res.status(500).send({message: 'Error aadding food'});
       }
     })
-
     //end pointing for upload image
     app.post('/upload-image', upload.single('image'), async(req,res)=>{
       if(!req.file){
@@ -135,25 +135,51 @@ async function run() {
 
 
     //patch method
-    app.patch("/update/:id", async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) }
-      const data = req.body;
+    app.patch("/update/:id", upload.single('img'), async (req, res) => {
+      try{
+        const {productTitle,productPrice,productImg,productDesc,quantity} = req.body;
+        const imgPath = req.file ? `/uploads/${req.file.filename}`: productImg
+
+        const productObject = {
+          productTitle,
+          productPrice,
+          productImg: imgPath,
+          productDesc,
+          quantity
+        };
+
+        const id = req.params.id;
+        const filter = { _id: new ObjectId(id) }
+        // const data = req.body;
 
       //update metod db
-      const updateData = {
-        $set: {
-          ...data
+        const updateData = {
+          $set: {
+            ...productObject
+          }
         }
-      }
 
-      const option = { upsert: true }
-      const result = await womenCollection.updateOne(
-        filter,
-        updateData,
-        option
-      )
-      res.send(result);
+        const option = { upsert: true }
+        const result = await womenCollection.updateOne(
+          filter,
+          updateData,
+          option
+        )
+        res.send(result);
+      }
+      catch(error){
+        console.error(error);
+        res.status(500).send({message: 'Error aadding food'});
+      }
+      
+    });
+
+    app.patch('"/update/:id"', upload.single('image'), async(req,res)=>{
+      if(!req.file){
+        return res.status(400).send('No file uploaded')
+      }
+      const imageUrl = `/uploads/${req.file.filename}`
+      res.send({imageUrl});
     });
 
     app.patch("/menupdate/:id", async (req, res) => {

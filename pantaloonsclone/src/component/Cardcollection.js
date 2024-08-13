@@ -10,6 +10,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteCart } from "../store/Cartslice";
 import { Link } from "react-router-dom";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 export const Cardcollection = () => {
   const [bunndleProduct, setBundle] = useState([]);
 
@@ -23,10 +24,32 @@ export const Cardcollection = () => {
   )
   const dispatch = useDispatch();
   const addCart = (item) =>{
-    dispatch(addToCart(item))
+    dispatch(addToCart(item));
+    toast.success('Product added successfully!', {
+      position: "bottom-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
   }
   const deleteFromCart = (item) =>{
-    dispatch(deleteCart(item))
+    dispatch(deleteCart(item));
+    toast.error('Product delete successfully!', {
+      position: "bottom-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+      });
   }
   return (
     <div className="card_collection_section mt-5 mb-0 pt-5 pb-5">
@@ -85,6 +108,7 @@ export const Cardcollection = () => {
           ))}
         </Swiper>
       </div>
+      <ToastContainer autoClose={1000}/>
     </div>
   );
 };
