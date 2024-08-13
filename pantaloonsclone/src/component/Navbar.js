@@ -19,7 +19,7 @@ export const Navbar = () => {
   const totalAmout = product.reduce((total, item) => total + (item.productPrice * item.quantity),0);
   return (
     <div id="navbarsection" className="navbar_section">
-      <nav className="navbar navbar-expand-lg container">
+      <nav className="navbar navbar-expand-lg container">   
         <div className="container-fluid p-0">
           <Link className="navbar-brand" to="/">
             <img src={logo} />

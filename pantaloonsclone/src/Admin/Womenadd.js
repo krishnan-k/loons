@@ -35,12 +35,13 @@ const Womenadd = () => {
     formData.append('productImg', productImg)
     formData.append('quantity', quantity);
     formData.append('img', file)
-
+    const productObject = { productTitle, productPrice, productImg, productDesc, quantity }
     try{
       const response = await axios.post('http://localhost:5000/women', formData,{
         headers:{
           'Content-Type' : 'multipart/form-data'
-        }
+        },
+        body: JSON.stringify(productObject)
       });
       if(response.data.insertedId){
         toast.success("Product added successfully");
@@ -52,9 +53,10 @@ const Womenadd = () => {
     }catch(error){
       toast.error('Error uploading file')
       console.error("Error:", error);
+      
     }
 
-    const productObject = { productTitle, productPrice, productImg, productDesc, quantity }
+    
     console.log(productObject);
 
     // fetch("http://localhost:5000/women", {
@@ -74,7 +76,7 @@ const Womenadd = () => {
     <div className="pannel">
       <Admin />
       <div className="form-control-section">
-        <form className="editdashboard" onSubmit={handleSubmit}>
+        <form className="editdashboard" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form_title mb-3">
             <label value="productTitle" className="text-capitalize">
               Title

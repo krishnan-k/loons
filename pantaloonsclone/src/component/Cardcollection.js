@@ -5,7 +5,6 @@ import { Navigation } from "swiper/modules";
 import "../component-css/cardcollection.css";
 import "swiper/css";
 import "swiper/css/navigation";
-import dealDayProduct from "../collection-products/Dealdayproduct";
 import flashImage from "../image/flash.svg";
 import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";

@@ -21,7 +21,7 @@ export const Cart = () => {
     if(quantity === ''){
       quantity = 1;
     }
-    dispatch(updateQuantity({ id, quantity: quantity + 1 }));
+    dispatch(updateQuantity({ id, quantity : quantity + 1 }));
   };
   const DecrementQuantity = (id, quantity) => {
     // if (typeof quantity !== "number") {
@@ -31,7 +31,7 @@ export const Cart = () => {
       quantity = 1;
     }
     if (quantity > 1) {
-      dispatch(updateQuantity({ id, quantity: quantity - 1 }));
+      dispatch(updateQuantity({ id, quantity : quantity - 1 }));
     }
   };
   // const totalQuantity = product.reduce((total,item) => total + (item.quantity),0);
@@ -63,7 +63,7 @@ export const Cart = () => {
                 key={item._id}
               >
                 <div className="product-image">
-                  <img src={item.productImg} alt="image" />
+                  <img src={(item.productImg && item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle}/>
                 </div>
                 <div class="card-body text-start">
                   <div className="offer-tag">
