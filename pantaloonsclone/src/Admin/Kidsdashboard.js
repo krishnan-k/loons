@@ -58,7 +58,7 @@ const Kidsdashboard = () => {
           <tbody>
             {productItems.map((item) => (
               <tr key={item._id}>
-                <th scope="row"><img src={item.productImg}/></th>
+                <td scope="row"><img src={item.productImg}/></td>
                 <td>{item.productTitle}</td>
                 <td>{item.productPrice}</td>
                 <th>

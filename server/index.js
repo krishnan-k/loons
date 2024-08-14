@@ -57,16 +57,37 @@ async function run() {
     //   res.send(result);
     // });
 
-    app.post("/men", async (req, res) => {
-      const data = req.body;
-      const result = await menCollection.insertOne(data);
-      res.send(result);
+    app.post("/men", upload.single('img'), async (req, res) => {
+      try{
+        const {productTitle, productPrice,productImg,productDesc,quantity} = req.body
+        const imgPath = req.file ? `/uploads/${req.file.filename}` : productImg
+        const productObject ={
+          productTitle,
+          productPrice,
+          productImg: imgPath,
+          productDesc,
+          quantity
+        }
+        const result = await menCollection.insertOne(productObject)
+        res.send(result);
+      }
+      catch(error){
+        res.send(500).send({message: 'Error adding product'})
+      }
     });
-    app.post("/kids", async (req, res) => {
-      const data = req.body;
-      const result = await kidsCollection.insertOne(data);
-      res.send(result);
-    });
+    //end pointing for upload image
+    app.post('upload/img', upload.single('image'), async(req,res) =>{
+      if(!req.file){
+        return res.status(400).send('No file uploaded')
+      }
+      const imageUrl = `uploads/${req.file.filename}`
+      res.send(imageUrl);
+    })
+    // app.post("/kids", async (req, res) => {
+    //   const data = req.body;
+    //   const result = await kidsCollection.insertOne(data);
+    //   res.send(result);
+    // });
     
 
 
@@ -86,7 +107,7 @@ async function run() {
         res.send(result)
       }
       catch(error){
-        res.status(500).send({message: 'Error aadding food'});
+        res.status(500).send({message: 'Error aadding product'});
       }
     })
     //end pointing for upload image
@@ -137,25 +158,17 @@ async function run() {
     //patch method
     app.patch("/update/:id", upload.single('img'), async (req, res) => {
       try{
-        const {productTitle,productPrice,productImg,productDesc,quantity} = req.body;
-        const imgPath = req.file ? `/uploads/${req.file.filename}`: productImg
-
-        const productObject = {
-          productTitle,
-          productPrice,
-          productImg: imgPath,
-          productDesc,
-          quantity
-        };
-
         const id = req.params.id;
         const filter = { _id: new ObjectId(id) }
-        // const data = req.body;
+        const data = req.body;
 
+        if(req.file){
+          data.productImg = `/uploads/${req.file.filename}`;
+        }
       //update metod db
         const updateData = {
           $set: {
-            ...productObject
+            ...data
           }
         }
 
@@ -174,19 +187,16 @@ async function run() {
       
     });
 
-    app.patch('"/update/:id"', upload.single('image'), async(req,res)=>{
-      if(!req.file){
-        return res.status(400).send('No file uploaded')
-      }
-      const imageUrl = `/uploads/${req.file.filename}`
-      res.send({imageUrl});
-    });
-
-    app.patch("/menupdate/:id", async (req, res) => {
+    
+    app.patch("/menupdate/:id", upload.single('img'), async (req, res) => {
+      try{
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const data = req.body
 
+      if(req.file){
+        data.productImg = `/uploads/${req.file.filename}`;
+      }
       const updateData = {
         $set: {
           ...data
@@ -200,7 +210,12 @@ async function run() {
         option
       )
       res.send(result);
-    })
+    }
+    catch(error){
+      console.error(error);
+      res.status(500).send({message: 'Error aadding food'});
+    }
+    });
 
     app.patch("/kidsupdate/:id", async (req, res) => {
       const id = req.params.id

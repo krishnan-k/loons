@@ -32,6 +32,7 @@
   background: #00d0d5;
   color: white;
   transition: all 0.3s linear;
+  min-width: 40px;
   width: 40px;
   height: 40px;
   display: flex;
@@ -65,19 +66,78 @@ button.quantity_button {
   box-shadow: rgb(0 0 0 / 10%) 0px 0px 0px 1px;
   transition: all 0.3s linear;
 }
-.quantity-buttons{
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+.quantity-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
-button.quantity_button:hover{
-    background: #00d0d5;
+button.quantity_button:hover {
+  background: #00d0d5;
 }
 .quantity-buttons svg {
-    width: 10px;
-    height: 10px;
-    transition: all 0.3s linear;
+  width: 10px;
+  height: 10px;
+  transition: all 0.3s linear;
 }
-.quantity-buttons .quantity_button:hover svg{
-    color: white;
+.quantity-buttons .quantity_button:hover svg {
+  color: white;
+}
+.cart_total_section {
+  display: flex;
+}
+.cart_total_container.container {
+  width: 50%;
+  background: #e9feff;
+  padding: 30px;
+  border-radius: 5px;
+  position: sticky;
+  height: fit-content;
+  top: 0;
+}
+.cart_total_container .product-title h5 {
+  font-size: 13px;
+  letter-spacing: 2.2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+}
+span.multiple-quantity {
+  font-size: 10px;
+}
+.cart_total_container .total p.description,
+.cart_total_container p.description {
+  font-size: 13px;
+  letter-spacing: 2.2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+button.btn {
+  font-size: 14px;
+  letter-spacing: 2.2px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00a1a5 5%, #00c2c8 100%);
+  color: white;
+  padding: 13px 60px;
+  border-radius: 50px;
+  width: 85%;
+}
+.cart_total_container .product-title,
+.grand_total .total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart_total_container .total p.description,
+.grand_total .total {
+  font-size: 15px;
+}
+.cart_total_container > p.description {
+  font-family: Trirong, serif;
+  text-transform: capitalize;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: normal;
+  font-size: 16px;
 }

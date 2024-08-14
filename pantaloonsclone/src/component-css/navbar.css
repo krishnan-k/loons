@@ -1,9 +1,9 @@
 .navbar_section {
     background: #00b0b5;
     padding: .5rem 6rem;
-    position: sticky;
+    /* position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 2; */
 }
 
 .navbar_section a.navbar-brand img {

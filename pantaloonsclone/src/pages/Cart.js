@@ -21,7 +21,7 @@ export const Cart = () => {
     // if(quantity === ''){
     //   parseInt(quantity, 1);
     // }
-    dispatch(updateQuantity({ id, quantity : quantity + 1 }));
+    dispatch(updateQuantity({ id, quantity: quantity + 1 }));
   };
   const DecrementQuantity = (id, quantity) => {
     // if (typeof quantity !== "number") {
@@ -31,11 +31,11 @@ export const Cart = () => {
     //   parseInt(quantity, 1);
     // }
     if (quantity > 1) {
-      dispatch(updateQuantity({ id, quantity : quantity - 1 }));
+      dispatch(updateQuantity({ id, quantity: quantity - 1 }));
     }
   };
-  // const totalQuantity = product.reduce((total,item) => total + (item.quantity),0);
-  //const totalAmout = product.reduce((total, item) => total + (item.price*item.quantity),0);
+  const quantity = product.reduce((total,item) => total + (item.quantity),0);
+  const totalAmout = product.reduce((total, item) => total + (item.productPrice*item.quantity),0);
   return (
     <div className="container-fluid cart-page">
       <div className="empty-cart-page text-center pt-5 pb-2 mt-3 mb-1">
@@ -56,59 +56,99 @@ export const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="cart-section container">
-            {product.map((item) => (
-              <div
-                className="card border-0 cart-product mt-4 mb-4"
-                key={item._id}
-              >
-                <div className="product-image">
-                  <img src={(item.productImg && item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle}/>
-                </div>
-                <div class="card-body text-start">
-                  <div className="offer-tag">
-                    <div className="offer-percentage ">
-                      <span className="offer-text text-uppercase">30% off</span>
+          <div className="cart_total_section">
+            <div className="cart-section container">
+              {product.map((item) => (
+                <div
+                  className="card border-0 cart-product mt-0 mb-4"
+                  key={item._id}
+                >
+                  <div className="product-image">
+                    <img
+                      src={
+                        item.productImg && item.productImg.startsWith("http")
+                          ? item.productImg
+                          : `http://localhost:5000${item.productImg}`
+                      }
+                      alt={item.productTitle}
+                    />
+                  </div>
+                  <div class="card-body text-start">
+                    <div className="offer-tag">
+                      <div className="offer-percentage ">
+                        <span className="offer-text text-uppercase">
+                          30% off
+                        </span>
+                      </div>
+                      <div className="flash">
+                        <img src={flashImage} alt="flash-image" />
+                        <span className="flash-text text-capitalize ms-1 me-1">
+                          flash deal
+                        </span>
+                      </div>
                     </div>
-                    <div className="flash">
-                      <img src={flashImage} alt="flash-image" />
-                      <span className="flash-text text-capitalize ms-1 me-1">
-                        flash deal
+                    <h5 class="card-title text-uppercase mb-1">
+                      {item.productTitle}
+                    </h5>
+                    <p class="card-text mb-1">{item.productDesc}</p>
+                    <p className="product_price mb-0">
+                      ₹{item.productPrice}
+                      <span className="product_price text-decoration-line-through text-black-50 fw-bolder">
+                        ₹{item.comparePrice}
                       </span>
+                    </p>
+
+                    <div className="quantity-buttons mt-2">
+                      <button
+                        type="button"
+                        className="quantity_button"
+                        onClick={() =>
+                          DecrementQuantity(item._id, item.quantity)
+                        }
+                      >
+                        <FaMinus />
+                      </button>
+                      {item.quantity}
+                      <button
+                        type="button"
+                        className="quantity_button"
+                        onClick={() =>
+                          IncrementQuantity(item._id, item.quantity)
+                        }
+                      >
+                        <FaPlus />
+                      </button>
                     </div>
                   </div>
-                  <h5 class="card-title text-uppercase mb-1">{item.productTitle}</h5>
-                  <p class="card-text mb-1">{item.productDesc}</p>
-                  <p className="product_price mb-0">
-                    ₹{item.productPrice}
-                    <span className="product_price text-decoration-line-through text-black-50 fw-bolder">
-                      ₹{item.comparePrice}
-                    </span>
-                  </p>
-
-                  <div className="quantity-buttons mt-2">
-                    <button
-                      type="button"
-                      className="quantity_button"
-                      onClick={() => DecrementQuantity(item._id, item.quantity)}
-                    >
-                      <FaMinus />
-                    </button>
-                    {item.quantity}
-                    <button
-                      type="button"
-                      className="quantity_button"
-                      onClick={() => IncrementQuantity(item._id, item.quantity)}
-                    >
-                      <FaPlus />
-                    </button>
+                  <div className="add-to-cart-button cart-button">
+                    <MdDeleteForever onClick={() => deleteFromCart(item)} />
                   </div>
                 </div>
-                <div className="add-to-cart-button cart-button">
-                  <MdDeleteForever onClick={() => deleteFromCart(item)} />
+              ))}
+            </div>
+
+            <div className="cart_total_container container">
+              <p className="description text-start">total summary</p>
+              {product.map((item) => (
+                <div key={item._id}>
+                  <div className="product-title mb-2">
+                    <h5 className="m-0">{item.productTitle} 
+                      <span className="multiple-quantity"></span>
+                      ({item.quantity}<span className="fw-normal">items</span>)
+                    </h5>
+                    {item.productPrice * item.quantity}
+                  </div>
                 </div>
+              ))}
+              <div className="grand_total">
+              <div className="total mt-2 mb-2 pt-2">
+                    <p className="description m-0">Total Payable Amount:</p>
+                    <p className="description m-0">{totalAmout}</p>
               </div>
-            ))}
+
+              <button type="submit" className="btn text-uppercase mt-3">checkout</button>
+              </div>
+            </div>
           </div>
         )}
       </div>

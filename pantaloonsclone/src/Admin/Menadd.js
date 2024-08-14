@@ -1,49 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Admin from "./Admin";
 import { FaBackspace } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import axios from 'axios';
 const Menadd = () => {
-  const handleSubmit = (e) =>{
+  const [file, setFile] = useState(null);
+  const handleFileChange = (e) =>{
+    setFile(e.target.files[0]);
+  }
+  const handleSubmit = async (e) =>{
     e.preventDefault()
     const form = e.target;
+    const formData = new FormData()
     const productTitle = form.productTitle.value
     const productPrice = form.productPrice.value
     const productImg = form.productImg.value
     const productDesc = form.productDesc.value
     const quantity = 1
+    
 
-    if(productTitle === "" || productPrice === "" || productImg === "" || productDesc === ""){
+    if(productTitle ==="" || productPrice === "" || productDesc === ""){
       toast.error("Fill the all fields");
       return
     }
-    
-    const productObject ={productTitle, productPrice, productImg, productDesc, quantity}
-    
-    console.log(productObject);
+      
+    formData.append('productTitle', productTitle)
+    formData.append('productPrice', productPrice)
+    formData.append('productDesc', productDesc)
+    formData.append('productImg', productImg)
+    formData.append('quantity', quantity)
+    formData.append('img', file)
 
-    fetch("http://localhost:5000/men", {  
-      method: 'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify(productObject)
-    })
-    .then((res) => res.json())
-    .then((data) =>{
-      toast.success('Product added successfully')
-      form.reset();
-    })
+    const productObject ={productTitle, productPrice, productImg, productDesc, quantity}
+    //Nomal post method
+    // fetch("http://localhost:5000/men", {  
+    //   method: 'POST',
+    //   headers:{
+    //     'Content-Type':'application/json'
+    //   },
+    //   body:JSON.stringify(productObject)
+    // })
+    // .then((res) => res.json())
+    // .then((data) =>{
+    //   toast.success('Product added successfully')
+    //   form.reset();
+    // })
+
+    //Multer post method
+    try{
+      const response = await axios.post("http://localhost:5000/men", formData,{
+        headers:{
+          'Content-Type' : 'application/form-data'
+        },
+        body:JSON.stringify(productObject)
+      })
+      if(response.data.insertedId){
+        toast.success("Product added successfully");
+        form.reset();
+      }
+      else{
+        toast.error("Error adding product");
+      }
+    }
+    catch(error){
+      toast.error('Error uploading file')
+      console.error("Error:", error);
+    }
   }
   return (
     <div className="pannel">
       <Admin />
       <div className="form-control-section">
-        <form className="editdashboard" onSubmit={handleSubmit}>
+        <form className="editdashboard" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form_title mb-3">
             <label value="productTitle" className="text-capitalize">
               Title
@@ -65,7 +96,7 @@ const Menadd = () => {
               </label>
               <input
                 className="text-capitalize"
-                type="text"
+                type="number"
                 id="productPrice"
                 name="productPrice"
                 placeholder="price"
@@ -78,7 +109,7 @@ const Menadd = () => {
               </label>
               <input
                 className="text-capitalize"
-                type="text"
+                type="number"
                 placeholder="compare price"
                 
               />
@@ -94,6 +125,21 @@ const Menadd = () => {
               id="productImg"
               name="productImg"
               placeholder="add your Img url here"
+            />
+          </div>
+          <div>
+            <label value="img" className="text-capitalize">
+              Image url
+            </label>
+            <input
+              className="text-capitalize input-file"
+              filename={file}
+              type="file"
+              id="img"
+              name="img"
+              accept="image/*" onChange={handleFileChange}
+              placeholder="add your Img url here"
+
             />
           </div>
           <div className="form_description mb-3">

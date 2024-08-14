@@ -55,7 +55,9 @@ const Mendashboard = () => {
           <tbody>
             {productItems.map((item) => (
               <tr key={item._id}>
-                <td><img src={item.productImg}/></td>
+                <td>
+                <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle}/>
+                  </td>
                 <td>{item.productTitle}</td>
                 <td>{item.productPrice}</td>
                 <th>

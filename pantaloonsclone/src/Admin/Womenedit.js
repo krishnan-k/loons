@@ -11,58 +11,66 @@ const Womenedit = () => {
       productTitle: '',
       productPrice: '',
       productImg: '',
-      img:'',
       productDesc: ''
-    }
-  )
-  const [file,setFile] = useState(null)
-  const handleFileChange = (e) =>{
-    setFile(e.target.files[0]);
-  }
+    });
+  //const [file,setFile] = useState(null)
+  // const handleFileChange = (e) =>{
+  //   setFile(e.target.files[0]);
+  // }
   useEffect(()=>{
     fetch(`http://localhost:5000/women/${id}`)
     .then((res) => res.json())
     .then((data) => setItems(data))
-  })
+  },[id]);
 
   const handleSubmit = (e) =>{
     e.preventDefault();
     const form = e.target
-    const productTitle = form.productTitle.value
-    const productPrice = form.productPrice.value
-    const productImg = form.productImg.value
-    const productDesc = form.productDesc.value
-    const quantity = 1
     const formData = new FormData();
+    // const productTitle = form.productTitle.value
+    // const productPrice = form.productPrice.value
+    // const productImg = form.productImg.value
+    // const productDesc = form.productDesc.value
+    //const quantity = 1
+    
 
-    if (productTitle === '' || productPrice === '' || productImg === '' || productDesc === ''){
-      toast.error("Fill the all fields")
-      return
+    // if (productTitle === '' || productPrice === '' || productImg === '' || productDesc === ''){
+    //   toast.error("Fill the all fields")
+    //   return
+    // }
+
+    //const productObject = {productTitle,productPrice, productImg, productDesc, quantity}
+
+    formData.append('productTitle', form.productTitle.value)
+    formData.append('productPrice', form.productPrice.value)
+    formData.append('productDesc', form.productDesc.value)
+    // formData.append('productImg', productImg)
+    //formData.append('quantity', quantity)
+    //formData.append('img', file)
+
+    //check if a new image was uploaded
+    if(form.img.files.length > 0){
+      formData.append("img", form.img.files[0]);//file upload
+    }else{
+      formData.append('productImg', form.productImg.value);//use existing img url
     }
 
-    formData.append('productTitle', productTitle)
-    formData.append('productPrice', productPrice)
-    formData.append('productDesc', productDesc)
-    formData.append('productImg', productImg)
-    formData.append('quantity', quantity)
-    formData.append('img', file)
-
-    const productObject = {productTitle,productPrice, productImg, productDesc, quantity}
-
-
-    fetch(`http://localhost:5000/update/${id}`,formData, {
+    fetch(`http://localhost:5000/update/${id}`,{
       method: 'PATCH',
-      headers:{
-        'Content-Type' : 'application/form-data'
-      },
-      body:JSON.stringify(productObject)
+      // headers:{
+      //   'Content-Type' : 'application/form-data'
+      // },
+      body:formData//send format object
     })
     .then((res) => res.json())
     .then((data) => {
       toast.success('Product updated successfully')
       window.location.href="/admin/womendashboard"
-    }
-    )
+    })
+    .catch((error)=>{
+      console.log('error updating product:', error);
+      toast.error('failed to update food')
+    })
 
   }
   return (
@@ -132,7 +140,7 @@ const Womenedit = () => {
               id="img"
               name="img"
               accept="image/*"
-              onChange={handleFileChange}
+              // onChange={handleFileChange}
               placeholder="add your Img url here"
               defaultValue={productItems.img}
               

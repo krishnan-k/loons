@@ -16,34 +16,51 @@ const Menedit = () => {
     fetch(`http://localhost:5000/men/${id}`)
     .then((res) => res.json())
     .then((data) => setItems(data))
-  })
+  },[id])
   
   const handleSubmit = (e) =>{
     e.preventDefault()
-    const form = e.target
-    const productTitle = form.productTitle.value
-    const productPrice = form.productPrice.value
-    const productImg = form.productImg.value
-    const productDesc = form.productDesc.value
+    const form = e.target;
+    const formData = new FormData();
+    // const productTitle = form.productTitle.value
+    // const productPrice = form.productPrice.value
+    // const productImg = form.productImg.value
+    // const productDesc = form.productDesc.value
 
-    if(productTitle==='' || productPrice==='' || productImg==='' || productDesc===''){
-      toast.error("Fill the all fields")
-      return
+    formData.append('productTitle', form.productTitle.value)
+    formData.append('productPrice', form.productPrice.value)
+    //formData.append('productImg', form.productImg.value)
+    formData.append('productDesc', form.productDesc.value)
+
+    // if(productTitle==='' || productPrice==='' || productDesc===''){
+    //   toast.error("Fill the all fields")
+    //   return
+    // }
+
+    if(form.img.files.length > 0){
+      formData.append('img', form.img.files[0]);//file upload
     }
+    else{
+      formData.append('productImg', form.productImg.value);////use existing img url
+    }
+    //const productObject = {productTitle,productPrice,productDesc}
+    //console.log(productObject);
 
-    const productObject = {productTitle,productPrice, productImg, productDesc}
-    console.log(productObject);
     fetch(`http://localhost:5000/menupdate/${id}`,{
       method: 'PATCH',
-      headers:{
-        'Content-Type' : 'application/json'
-      },
-      body:JSON.stringify(productObject)
+      // headers:{
+      //   'Content-Type' : 'application/json'
+      // },
+      body:formData//send format object
     })
     .then((res) => res.json())
     .then((data) => {
       window.location.href="/admin/mendashboard"
       toast.success('Product updated successfully')
+    })
+    .catch((error)=>{
+      console.log('error updating product:', error);
+      toast.error('failed to update food')
     })
 
   }
@@ -51,7 +68,7 @@ const Menedit = () => {
     <div className="pannel">
       <Admin />
       <div className="form-control-section">
-        <form className="editdashboard" onSubmit={handleSubmit}>
+        <form className="editdashboard" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="form_title mb-3">
             <label value="productTitle" className="text-capitalize">Title</label>
             <input
@@ -70,7 +87,7 @@ const Menedit = () => {
               </label>
               <input
                 className="text-capitalize"
-                type="text"
+                type="number"
                 id="productPrice"
                 name="productPrice"
                 placeholder="price"
@@ -83,7 +100,7 @@ const Menedit = () => {
               </label>
               <input
                 className="text-capitalize"
-                type="text"
+                type="number"
                 id="price"
                 name="price"
                 placeholder="compare price"
@@ -91,14 +108,31 @@ const Menedit = () => {
             </div>
           </div>
           <div className="form_image mb-3">
-          <label value="productImg" className="text-capitalize" for="image">Image url</label>
+            <label value="productImg" className="text-capitalize">
+              Image url
+            </label>
             <input
-            className="text-capitalize"
+              className="text-capitalize"
               type="text"
               id="productImg"
               name="productImg"
               placeholder="add your Img url here"
               defaultValue={productItems.productImg}
+              
+            />
+            <label value="img" className="text-capitalize">
+              Image url
+            </label>
+            <input
+              className="text-capitalize input-file"
+              type="file"
+              id="img"
+              name="img"
+              accept="image/*"
+              // onChange={handleFileChange}
+              placeholder="add your Img url here"
+              defaultValue={productItems.img}
+              
             />
           </div>
           <div className="form_description mb-3">
