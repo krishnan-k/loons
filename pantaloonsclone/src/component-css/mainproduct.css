@@ -1,0 +1,27 @@
+.main-product-content {
+    display: flex;
+}
+.main-product-content .product-image{
+    width: 55%;
+}
+.main-product-content .product-content {
+    padding: 2rem 2.5rem;
+}
+.main-product-content .add-to-cart-button{
+    cursor: pointer;
+}
+.main-product-content .add-to-cart-button .delete-cart {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    border-radius: 5px;
+}   
+.main-product-content .product-content h2 {
+    font-size: 22px;
+    letter-spacing: 2.2px;
+    font-weight: 600;
+}
+.offer-content{
+    display: flex;
+    gap: 10px;
+}

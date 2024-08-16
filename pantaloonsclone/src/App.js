@@ -21,6 +21,7 @@ import Womenadd from "./Admin/Womenadd";
 import Womenedit from "./Admin/Womenedit";
 import Kidsedit from "./Admin/Kidsedit";
 import Kidsadd from "./Admin/Kidsadd";
+import Mainproduct from "./pages/Mainproduct";
 // import Cartdrawer from "./pages/Cartdrawer";
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="brand" element={<Brandpage />} />
           <Route path="account" element={<Account />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="/women/:id" element={<Mainproduct/>}/>
         </Routes>
         <Support/>
         <Footer />

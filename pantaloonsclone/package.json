@@ -1,5 +1,6 @@
 {
   "name": "pantaloonclone",
+  "homepage": "https://krishnan-k.github.io/loons",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
