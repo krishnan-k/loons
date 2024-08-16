@@ -41,6 +41,7 @@ const Womendashboard = () => {
               <th className="text-capitalize">Image</th>
               <th className="text-capitalize">title</th>
               <th className="text-capitalize">price</th>
+              <th className="text-capitalize">compare price</th>
               <th className="text-capitalize">edit</th>
               <th className="text-capitalize">delete</th>
             </tr>
@@ -53,6 +54,7 @@ const Womendashboard = () => {
               </td>
               <td>{item.productTitle}</td>
               <td>{item.productPrice}</td>
+              <td>{item.comparePrice}</td>
               <td>
                 <Link to={`/admin/womenedit/${item._id}`} className="text-decoration-none"><button
                   type="button"

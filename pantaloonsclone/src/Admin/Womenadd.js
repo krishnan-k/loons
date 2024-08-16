@@ -20,6 +20,7 @@ const Womenadd = () => {
     const formData = new FormData();
     const productTitle = form.productTitle.value
     const productPrice = form.productPrice.value
+    const comparePrice = form.comparePrice.value
     const productImg = form.productImg.value
     const productDesc = form.productDesc.value
     const quantity = 1
@@ -33,11 +34,12 @@ const Womenadd = () => {
     
     formData.append('productTitle', productTitle)
     formData.append('productPrice', productPrice)
+    formData.append('comparePrice', comparePrice)
     formData.append('productDesc', productDesc)
     formData.append('productImg', productImg)
     formData.append('quantity', quantity);
     formData.append('img', file)
-    const productObject = { productTitle, productPrice, productImg, productDesc, quantity }
+    const productObject = { productTitle, productPrice, comparePrice,productImg, productDesc, quantity }
     console.log(productObject); 
     
     try{
@@ -108,14 +110,14 @@ const Womenadd = () => {
               />
             </div>
             <div className="compare_price">
-              <label className="text-capitalize">
+              <label value="comparePrice" className="text-capitalize">
                 compare price
               </label>
               <input
                 className="text-capitalize"
                 type="number"
-                id="price"
-                name="price"
+                id="comparePrice"
+                name="comparePrice"
                 placeholder="compare price"
 
               />

@@ -22,6 +22,8 @@ export const Cardcollection = () => {
   const product = useSelector(state =>
     state.cart.cartItems
   )
+  
+  
   const dispatch = useDispatch();
   const addCart = (item) =>{
     dispatch(addToCart(item));
@@ -85,7 +87,7 @@ export const Cardcollection = () => {
                 <div class="card-body">
                   <div className="offer-tag">
                     <div className="offer-percentage ">
-                      <span className="offer-text text-uppercase">30% off</span>
+                      <span className="offer-text text-uppercase">{(((item.comparePrice - item.productPrice) / (item.comparePrice)) * 100).toFixed()}%off</span>
                     </div>
                     <div className="flash">
                       <img src={flashImage} alt="flash-image" />

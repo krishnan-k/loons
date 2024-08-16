@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { Swipercarousel } from "../component/Swipercarousel";
 import { Cardcollection } from "../component/Cardcollection";
 import Cardcollectionnew from "../component/Cardcollectionnew";

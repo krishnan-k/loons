@@ -10,6 +10,7 @@ const Womenedit = () => {
     {
       productTitle: '',
       productPrice: '',
+      comparePrice:'',
       productImg: '',
       productDesc: ''
     });
@@ -43,6 +44,7 @@ const Womenedit = () => {
 
     formData.append('productTitle', form.productTitle.value)
     formData.append('productPrice', form.productPrice.value)
+    formData.append('comparePrice', form.comparePrice.value)
     formData.append('productDesc', form.productDesc.value)
     // formData.append('productImg', productImg)
     //formData.append('quantity', quantity)
@@ -106,15 +108,16 @@ const Womenedit = () => {
               />
             </div>
             <div className="compare_price">
-              <label className="text-capitalize">
+              <label value="comparePrice" className="text-capitalize">
                 compare price
               </label>
               <input
                 className="text-capitalize"
                 type="number"
-                id="price"
-                name="price"
+                id="comparePrice"
+                name="comparePrice"
                 placeholder="compare price"
+                defaultValue={productItems.comparePrice}
               />
             </div>
           </div>

@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "../component-css/cardcollection.css";
 import "swiper/css";
 import "swiper/css/navigation";
-import womenDealDayProduct from "../collection-products/Womendealdayproducts";
+//import womenDealDayProduct from "../collection-products/Womendealdayproducts";
 import { Link } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteCart } from "../store/Cartslice";
 const Womendeal = () => {
+  const [bundleProduct, setBundle] = useState([]);
+  useEffect(()=>{
+    fetch(`http://localhost:5000/getwomen`)
+    .then(res => res.json())
+    .then(data => setBundle(data))
+  })
   const autoplay = {
     delay: 2500,
     disableOnInteraction: false,
@@ -43,13 +49,13 @@ const Womendeal = () => {
           autoplay={autoplay}
           loop={true}
         >
-          {womenDealDayProduct.map((item) => (
+          {bundleProduct.map((item) => (
             <SwiperSlide>
-              <div className="card border-0 card-product" key={item.id}>
+              <div className="card border-0 card-product" key={item._id}>
               <div className="product-image">
-                  <img src={item.image} alt="image" />
+                  <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt="image" />
                   <div className="add-to-cart-button">  
-                    {product.find(items => items.id === item.id)
+                    {product.find(items => items._id === item._id)
                     ? <div className="add">
                       <Link to="/cart" className="view-cart text-center text-decoration-none text-white text-capitalize">view cart</Link>
                      <div className="delete-cart text-center text-white text-capitalize" onClick={()=> deleteFromCart(item) }>delete cart <MdDeleteForever/></div> </div>   :
@@ -58,10 +64,10 @@ const Womendeal = () => {
                   </div>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title text-uppercase mb-1">{item.title}</h5>
-                  <p class="card-text mb-1">{item.description}</p>
+                  <h5 class="card-title text-uppercase mb-1">{item.productTitle}</h5>
+                  <p class="card-text mb-1">{item.productDesc}</p>
                   <p className="product_price mb-0">
-                    ₹{item.price}
+                    ₹{item.productPrice}
                     <span className="product_price text-decoration-line-through text-black-50 fw-bolder">
                       ₹{item.comparePrice}
                     </span>

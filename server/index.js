@@ -93,12 +93,13 @@ async function run() {
 
     app.post('/women', upload.single('img'), async(req,res)=>{
       try{
-        const {productTitle,productPrice,productImg,productDesc,quantity} = req.body;
+        const {productTitle,productPrice,comparePrice,productImg,productDesc,quantity} = req.body;
         const imgPath = req.file ? `/uploads/${req.file.filename}`: productImg
-
+        
         const productObject = {
           productTitle,
           productPrice,
+          comparePrice,
           productImg: imgPath,
           productDesc,
           quantity
