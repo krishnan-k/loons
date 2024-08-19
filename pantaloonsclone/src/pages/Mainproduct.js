@@ -21,26 +21,23 @@ const Mainproduct = () => {
       .then((data) => setSingleProduct(data));
   }, [id]);
 
-  const product = useSelector(state =>
-    state.cart.cartItems
-  );
+  const product = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
-  const addCart = (item) =>{
+  const addCart = (item) => {
     dispatch(addToCart(item));
-  }
-  const deleteFromCart = (item) =>{
+  };
+  const deleteFromCart = (item) => {
     dispatch(deleteCart(item));
-  }
+  };
 
-  const IncrementQuantity = (id, quantity) =>{
-    dispatch(updateQuantity({id, quantity: quantity + 1}));
-  }
-  const DecrementQuantity = (id, quantity) =>{
-    if(quantity > 1){
-        dispatch(updateQuantity({id, quantity: quantity - 1}));
+  const IncrementQuantity = (id, quantity) => {
+    dispatch(updateQuantity({ id, quantity: quantity + 1 }));
+  };
+  const DecrementQuantity = (id, quantity) => {
+    if (quantity > 1) {
+      dispatch(updateQuantity({ id, quantity: quantity - 1 }));
     }
-    
-  }
+  };
   return (
     <div className="main-product">
       <div className="main-product-content" key={item._id}>
@@ -55,17 +52,24 @@ const Mainproduct = () => {
           />
         </div>
         <div className="product-content">
-            <div className="offer-content mb-2">
-                <div className="offer-percentage ">
-                    <span className="offer-text text-uppercase">{(((item.comparePrice - item.productPrice) / (item.comparePrice)) * 100).toFixed()}%off</span>
-                </div>
-                <div className="flash">
-                    <img src={flashImage} alt="flash-image" />
-                    <span className="flash-text text-capitalize ms-1 me-1">
-                    flash deal
-                    </span>
-                </div>
+          <div className="offer-content mb-2">
+            <div className="offer-percentage ">
+              <span className="offer-text text-uppercase">
+                {(
+                  ((item.comparePrice - item.productPrice) /
+                    item.comparePrice) *
+                  100
+                ).toFixed()}
+                %off
+              </span>
             </div>
+            <div className="flash">
+              <img src={flashImage} alt="flash-image" />
+              <span className="flash-text text-capitalize ms-1 me-1">
+                flash deal
+              </span>
+            </div>
+          </div>
           <h2 className="text-uppercase">{item.productTitle}</h2>
           <p className="mb-1">{item.productDesc}</p>
           <p className="product_price mb-0">
@@ -76,35 +80,44 @@ const Mainproduct = () => {
           </p>
 
           <div className="add-to-cart-button pt-2 mt-2">
-          {product.find(items => items._id === item._id)
-          ? 
-          <div className="add">
-          <div className="delete-cart text-center text-white text-capitalize" onClick={()=> deleteFromCart(item) }>delete cart <MdDeleteForever/></div> </div>   :
-          <div className="add-to-cart text-center text-decoration-none text-white text-capitalize shine-effect" onClick={() => addCart(item)}>add to cart</div>
-          } 
-          
-          <div className="quantity-buttons mt-2">
-                      <button
-                        type="button"
-                        className="quantity_button"
-                        onClick={() =>
-                          DecrementQuantity(item.id, item.quantity)
-                        }
-                      >
-                        <FaMinus />
-                      </button>
-                      {item.quantity}
-                      <button
-                        type="button"
-                        className="quantity_button"
-                        onClick={() =>
-                          IncrementQuantity(item.id, item.quantity)
-                        }
-                      >
-                        <FaPlus  />
-                      </button>
-                    </div>
-   
+            {product.find((items) => items._id === item._id) ? (
+              <div className="add">
+                <div
+                  className="delete-cart text-center text-white text-capitalize"
+                  onClick={() => deleteFromCart(item)}
+                >
+                  delete cart <MdDeleteForever />
+                </div>{" "}
+              </div>
+            ) : (
+              <div
+                className="add-to-cart text-center text-decoration-none text-white text-capitalize shine-effect"
+                onClick={() => addCart(item)}
+              >
+                add to cart
+              </div>
+            )}
+            {product.find((items) => items._id !== item.id) ? (
+              <div className="quantity-buttons mt-2">
+                <button
+                  type="button"
+                  className="quantity_button"
+                  onClick={() => DecrementQuantity(item._id, item.quantity)}
+                >
+                  <FaMinus />
+                </button>
+                {item.quantity}
+                <button
+                  type="button"
+                  className="quantity_button"
+                  onClick={() => IncrementQuantity(item._id, item.quantity)}
+                >
+                  <FaPlus />
+                </button>
+              </div>
+            ) : (
+              <div>dd</div>
+            )}
           </div>
         </div>
       </div>
