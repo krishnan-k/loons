@@ -34,7 +34,7 @@ export const Cart = () => {
       dispatch(updateQuantity({ id, quantity: quantity - 1 }));
     }
   };
-  const quantity = product.reduce((total,item) => total + (item.quantity),0);
+  //const quantity = product.reduce((total,item) => total + (item.quantity),0);
   const totalAmout = product.reduce((total, item) => total + (item.productPrice*item.quantity),0);
   return (
     <div className="container-fluid cart-page">
@@ -134,7 +134,7 @@ export const Cart = () => {
                   <div className="product-title mb-2">
                     <h5 className="m-0">{item.productTitle} 
                       <span className="multiple-quantity"></span>
-                      ({item.quantity}<span className="fw-normal">items</span>)
+                      ({item.quantity}<span className="fw-normal"> items</span>)
                     </h5>
                     {item.productPrice * item.quantity}
                   </div>

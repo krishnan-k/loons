@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "../component-css/cardcollectionnew.css";
 import "../component-css/cardcollection.css";
-import trendingProducts from "../collection-products/Trendingproducts";
+// import trendingProducts from "../collection-products/Trendingproducts";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteCart } from "../store/Cartslice";
@@ -22,6 +22,12 @@ const Cardcollectiontrend = () => {
   const deleteFromCart = (item) =>{
     dispatch(deleteCart(item))
   }
+  const [bunndleProduct, setBundle] = useState([]);
+  useEffect(()=>{
+    fetch(`http://localhost:5000/gettrending`)
+    .then(res => res.json())
+    .then((data) => setBundle(data))
+  },[])
   return (
     <div className="card_collection_one card_trend mt-4 mb-4 pt-2 pb-2">
       <div className="Card_Swiper_Carousel_One container">
@@ -35,11 +41,11 @@ const Cardcollectiontrend = () => {
           slidesPerView={4}
           spaceBetween={30}
         >
-          {trendingProducts.map((item) => (
+          {bunndleProduct.map((item) => (
             <SwiperSlide>
-              <div class="card card-product border-0 p-0" key={item.id}>
+              <div class="card card-product border-0 p-0" key={item._id}>
                 <div className="product-image">
-                    <img src={item.image} alt="image" />
+                    <img src={item.productImg} alt="image" />
                     <div className="add-to-cart-button">  
                       {product.find(items => items.id === item.id)
                       ? <div className="add">
@@ -50,10 +56,10 @@ const Cardcollectiontrend = () => {
                     </div>
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title text-uppercase mb-1">{item.title}</h5>
-                    <p class="card-text mb-1">{item.description}</p>
+                    <h5 class="card-title text-uppercase mb-1">{item.productTitle}</h5>
+                    <p class="card-text mb-1">{item.productDesc}</p>
                     <p className="product_price mb-0">
-                      ₹{item.price}
+                      ₹{item.productPrice}
                       <span className="product_price text-decoration-line-through text-black-50 fw-bolder">
                         ₹{item.comparePrice}
                       </span>

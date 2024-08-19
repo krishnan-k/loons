@@ -48,7 +48,7 @@ async function run() {
     const womenCollection = client.db("pantaloonsclone").collection("women_collections");
     const menCollection = client.db("pantaloonsclone").collection("men_collections");
     const kidsCollection = client.db("pantaloonsclone").collection("kids_collections");
-
+    const trendingCollection = client.db("pantaloonsclone").collection("trending_collections");
 
     //post method
     // app.post("/women", async (req, res) => {
@@ -83,12 +83,7 @@ async function run() {
       const imageUrl = `uploads/${req.file.filename}`
       res.send(imageUrl);
     })
-    // app.post("/kids", async (req, res) => {
-    //   const data = req.body;
-    //   const result = await kidsCollection.insertOne(data);
-    //   res.send(result);
-    // });
-    
+ 
 
 
     app.post('/women', upload.single('img'), async(req,res)=>{
@@ -118,6 +113,18 @@ async function run() {
       }
       const imageUrl = `/uploads/${req.file.filename}`
       res.send({imageUrl});
+    })
+
+    app.post("/kids", async (req, res) => {
+      const data = req.body;
+      const result = await kidsCollection.insertOne(data);
+      res.send(result);
+    });
+
+    app.post("/trending", async(req, res) =>{
+      const data = req.body;
+      const result = await trendingCollection.insertOne(data);
+      res.send(result);
     })
 
     //get method
@@ -154,6 +161,17 @@ async function run() {
       res.send(result);
     })
 
+    app.get("/gettrending", async(req,res)=>{
+      const product = await trendingCollection.find().toArray();
+      res.send(product);
+    })
+
+    app.get("/trending/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const result = await trendingCollection.findOne(filter)
+      res.send(result);
+    })
 
 
     //patch method
@@ -237,6 +255,24 @@ async function run() {
       res.send(result);
     })
 
+    app.patch("/trendingupdate/:id", async(req,res)=>{
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const data = req.body
+
+      const updateData = {
+        $set:{
+          ...data
+        }
+      }
+      const option = {upsert: true}
+      const result = await trendingCollection.updateOne(
+        filter,
+        updateData,
+        option
+      )
+      res.send(result)
+    });
     //delete method
     app.delete("/update/:id", async (req, res) => {
       const id = req.params.id;
@@ -257,6 +293,14 @@ async function run() {
       const filter = { _id: new ObjectId(id) }
       const result = await kidsCollection.deleteOne(filter);
       res.send(result);
+    })
+
+    app.delete("/trendingupdate/:id", async(req,res)=>{
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) }
+      const result = await trendingCollection.deleteOne(filter)
+      res.send(result);
+      
     })
 
     // Send a ping to confirm a successful connection

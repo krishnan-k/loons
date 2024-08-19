@@ -22,6 +22,9 @@ import Womenedit from "./Admin/Womenedit";
 import Kidsedit from "./Admin/Kidsedit";
 import Kidsadd from "./Admin/Kidsadd";
 import Mainproduct from "./pages/Mainproduct";
+import Trendingdashboard from "./Admin/Trendingdashboard";
+import Trendingadd from "./Admin/Trendingadd";
+import Trendingedit from "./Admin/Trendingedit";
 // import Cartdrawer from "./pages/Cartdrawer";
 function App() {
   return (
@@ -39,12 +42,15 @@ function App() {
           <Route path="/admin/womendashboard" element={<Womendashboard/>}/>
           <Route path="/admin/mendashboard" element={<Mendashboard/>}/>
           <Route path="/admin/kidsdashboard" element={<Kidsdashboard />}/>
+          <Route path="/admin/trendingdashboard" element={<Trendingdashboard/>}/>
           <Route path="/admin/womenedit/:id" element={<Womenedit/>} loader={({params}) => fetch(`http://localhost:5000/women/${params.id}`)}/>
           <Route path="/admin/womenadd" element={<Womenadd/>}/>
           <Route path="/admin/menedit/:id" element={<Menedit/>} loader={({params}) => fetch(`http://localhost:5000/men/${params.id}`)}/>
           <Route path="/admin/menadd" element={<Menadd/>}/>
           <Route path="/admin/kidsedit/:id" element={<Kidsedit/>} loader={({params}) => fetch(`http://localhost:5000/kids/${params.id}`)}/>
           <Route path="/admin/kidsadd" element={<Kidsadd/>}/>
+          <Route path="/admin/trendingadd" element={<Trendingadd/>}/>
+          <Route path="/admin/trendingedit/:id" element={<Trendingedit/>} loader={({params}) =>fetch(`http://localhost:5000/trending/${params.id}`)}/>
           <Route path="brand" element={<Brandpage />} />
           <Route path="account" element={<Account />} />
           <Route path="cart" element={<Cart />} />

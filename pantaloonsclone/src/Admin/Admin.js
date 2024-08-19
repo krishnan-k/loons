@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./admin.css";
-// import adminImage from "../image/admin-dashboard.png"
 
 const Admin = () => {
   return (
@@ -35,6 +34,22 @@ const Admin = () => {
                 className="nav-link text-capitalize text-white"
               >
                 kids
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/admin/trendingdashboard"
+                className="nav-link text-capitalize text-white"
+              >
+                trending now
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                to="/admin/bestsellerdashboard"
+                className="nav-link text-capitalize text-white"
+              >
+                best seller
               </Link>
             </li>
           </ul>
