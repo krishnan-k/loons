@@ -25,6 +25,9 @@ import Mainproduct from "./pages/Mainproduct";
 import Trendingdashboard from "./Admin/Trendingdashboard";
 import Trendingadd from "./Admin/Trendingadd";
 import Trendingedit from "./Admin/Trendingedit";
+import Bestsellerdashboard from "./Admin/Bestsellerdashboard";
+import Bestselleradd from "./Admin/Bestselleradd";
+import Admindashboard from "./Admin/Admindashboard";
 // import Cartdrawer from "./pages/Cartdrawer";
 function App() {
   return (
@@ -38,11 +41,12 @@ function App() {
           <Route path="men" element={<Menpage />} />
           <Route path="kids" element={<Kids/>}/>
           <Route path="beauty" element={<Beauty />} />
-          <Route path="/admin" element={<Admin/>}/>
+          <Route path="/admindashboard" element={<Admindashboard/>}/>
           <Route path="/admin/womendashboard" element={<Womendashboard/>}/>
           <Route path="/admin/mendashboard" element={<Mendashboard/>}/>
           <Route path="/admin/kidsdashboard" element={<Kidsdashboard />}/>
           <Route path="/admin/trendingdashboard" element={<Trendingdashboard/>}/>
+          <Route path="/admin/bestsellerdashboard" element={<Bestsellerdashboard/>}/>
           <Route path="/admin/womenedit/:id" element={<Womenedit/>} loader={({params}) => fetch(`http://localhost:5000/women/${params.id}`)}/>
           <Route path="/admin/womenadd" element={<Womenadd/>}/>
           <Route path="/admin/menedit/:id" element={<Menedit/>} loader={({params}) => fetch(`http://localhost:5000/men/${params.id}`)}/>
@@ -51,6 +55,7 @@ function App() {
           <Route path="/admin/kidsadd" element={<Kidsadd/>}/>
           <Route path="/admin/trendingadd" element={<Trendingadd/>}/>
           <Route path="/admin/trendingedit/:id" element={<Trendingedit/>} loader={({params}) =>fetch(`http://localhost:5000/trending/${params.id}`)}/>
+          <Route path="/admin/bestselleradd" element={<Bestselleradd/>}/>
           <Route path="brand" element={<Brandpage />} />
           <Route path="account" element={<Account />} />
           <Route path="cart" element={<Cart />} />

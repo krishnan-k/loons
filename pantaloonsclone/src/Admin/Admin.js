@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./admin.css";
-
+import { FaFemale, FaHome } from "react-icons/fa";
+import { FaMale } from "react-icons/fa";
+import { MdChildCare } from "react-icons/md";
+import { GiAmpleDress } from "react-icons/gi";
 const Admin = () => {
   return (
     <div className="admin_pannel_dashboard">
@@ -9,7 +12,7 @@ const Admin = () => {
           <ul className="pt-5 pb-5 ps-0 pe-0">
             <li className="nav-item">
               <Link to="/" className="nav-link text-capitalize text-white">
-                Home
+              <FaHome /> Home
               </Link>
             </li>
             <li className="nav-item">
@@ -17,7 +20,7 @@ const Admin = () => {
                 to="/admin/womendashboard"
                 className="nav-link text-capitalize text-white"
               >
-                women
+                <FaFemale /> women
               </Link>
             </li>
             <li className="nav-item">
@@ -25,7 +28,7 @@ const Admin = () => {
                 to="/admin/mendashboard"
                 className="nav-link text-capitalize text-white"
               >
-                men
+                <FaMale />men
               </Link>
             </li>
             <li className="nav-item">
@@ -33,7 +36,7 @@ const Admin = () => {
                 to="/admin/kidsdashboard"
                 className="nav-link text-capitalize text-white"
               >
-                kids
+              <MdChildCare />  kids
               </Link>
             </li>
             <li className="nav-item">
@@ -41,7 +44,7 @@ const Admin = () => {
                 to="/admin/trendingdashboard"
                 className="nav-link text-capitalize text-white"
               >
-                trending now
+                <GiAmpleDress /> trending now
               </Link>
             </li>
             <li className="nav-item">
@@ -49,7 +52,7 @@ const Admin = () => {
                 to="/admin/bestsellerdashboard"
                 className="nav-link text-capitalize text-white"
               >
-                best seller
+                <GiAmpleDress /> best seller
               </Link>
             </li>
           </ul>

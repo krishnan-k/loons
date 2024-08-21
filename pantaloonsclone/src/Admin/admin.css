@@ -39,7 +39,7 @@
   text-transform: capitalize;
 }
 
-.pannel button.button{
+.pannel button.button {
   border: none;
   color: white;
   padding: 10px 20px 10px 15px;
@@ -81,7 +81,8 @@
 }
 
 .pannel input[type="text"],
-.pannel input[type="number"], textarea {
+.pannel input[type="number"],
+textarea {
   width: 100%;
   padding: 8px;
   border-radius: 5px;
@@ -91,19 +92,19 @@
 }
 .pannel .editdashboard input[type="text"]:focus-visible,
 .pannel .editdashboard input[type="number"]:focus-visible,
- textarea:focus-visible {
+textarea:focus-visible {
   outline: none;
 }
 .pannel .editdashboard .form_description textarea {
   min-height: 150px;
 }
 
-.pannel form.editdashboard>*:not(button) {
+.pannel form.editdashboard > *:not(button) {
   width: 50%;
 }
 
 .pannel form.editdashboard .upload-button,
-.pannel form.editdashboard .back-button  {
+.pannel form.editdashboard .back-button {
   border: none;
   color: white;
   padding: 10px 20px;
@@ -117,10 +118,10 @@
   border-radius: 5px;
   /* width: 40%; */
 }
-.pannel form.editdashboard .upload-button{
+.pannel form.editdashboard .upload-button {
   background: #18c985;
 }
-.pannel form.editdashboard .back-button{
+.pannel form.editdashboard .back-button {
   background: #d94e3d;
 }
 .pannel form.editdashboard .upload-button svg,
@@ -139,7 +140,7 @@
 }
 .pannel .editdashboard input[type="text"]::placeholder,
 textarea::placeholder {
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.5);
   font-size: 13px;
 }
 .pannel .editdashboard .form_price {
@@ -150,13 +151,15 @@ textarea::placeholder {
   font-size: 14px;
 }
 .pannel .editdashboard input[type="text"]:focus,
-.pannel .editdashboard input[type="number"]:focus, textarea:focus {
-  box-shadow: 0 0 0 .15rem #00b0b52e;
+.pannel .editdashboard input[type="number"]:focus,
+textarea:focus {
+  box-shadow: 0 0 0 0.15rem #00b0b52e;
 }
 .pannel table.table td img {
   width: 165px;
 }
-.admin-main-pannel,.admin-main-pannel .admin-image{
+.admin-main-pannel,
+.admin-main-pannel .admin-image {
   display: flex;
 }
 .admin-main-pannel .admin-image img {
@@ -178,4 +181,34 @@ input.input-file::file-selector-button {
   border-radius: 5px;
   background: #18c985;
   cursor: pointer;
+}
+.custom-admin-dashboard {
+  display: grid;
+  grid-template-columns: 300px auto;
+  width: 100%;
+}
+.custom-admin-dashboard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+.loons-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+button.button-pagination {
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #18c985;
+}
+button[disabled] {
+  cursor: not-allowed;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import "../component-css/cart.css";
 import emptyCartIcon from "../image/empty-cart.jpg";
-import Cardcollectiontrend from "../component/Cardcollectiontrend";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCart, updateQuantity } from "../store/Cartslice";
 import { MdDeleteForever } from "react-icons/md";
@@ -152,7 +151,6 @@ export const Cart = () => {
           </div>
         )}
       </div>
-      <Cardcollectiontrend />
     </div>
   );
 };

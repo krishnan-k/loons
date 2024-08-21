@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
 import { useSelector } from "react-redux";
+import { MdDarkMode } from "react-icons/md";
 export const Navbar = () => {
+  
   const headerNavigation = document.querySelector(".navbar_section");
   if (headerNavigation) {
     const navigationContent =
@@ -14,16 +16,21 @@ export const Navbar = () => {
       navigationContent.classList.add("active");
     });
   }
-  const product = useSelector(state => state.cart.cartItems);
-  const totalQuantity = product.reduce((total,item) => total + (item.quantity), 0)
-  const totalAmout = product.reduce((total, item) => total + (item.productPrice * item.quantity),0);
+  const product = useSelector((state) => state.cart.cartItems);
+  const totalQuantity = product.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+  const totalAmout = product.reduce(
+    (total, item) => total + item.productPrice * item.quantity,
+    0
+  );
   return (
     <div id="navbarsection" className="navbar_section">
-      <nav className="navbar navbar-expand-lg container">   
+      <nav className="navbar navbar-expand-lg container">
         <div className="container-fluid p-0">
           <Link className="navbar-brand" to="/">
             <img src={logo} />
-            
           </Link>
           <button
             className="navbar-toggler"
@@ -564,7 +571,7 @@ export const Navbar = () => {
               <li className="nav-item">
                 <Link
                   className="nav-link text-uppercase ms-3 me-3 fw-normal text-white"
-                  to="admin"
+                  to="admindashboard"
                 >
                   admin
                 </Link>
@@ -572,6 +579,7 @@ export const Navbar = () => {
             </ul>
           </div>
         </div>
+
         <div className="account-icon ms-4 me-0">
           <Link to="account">
             <FiUser />
@@ -584,7 +592,9 @@ export const Navbar = () => {
           </Link>
 
           <div className="cart_total ms-2">
-            <p className="text-white description m-0 text-capitalize">cart total</p>
+            <p className="text-white description m-0 text-capitalize">
+              cart total
+            </p>
             <p className="text-white m-0">₹ {totalAmout}</p>
           </div>
         </div>

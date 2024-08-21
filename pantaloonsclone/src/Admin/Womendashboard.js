@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Admin from "./Admin";
-import { MdAddBox } from "react-icons/md";
+import { MdAddBox, MdOutlineNavigateNext } from "react-icons/md";
+import { GrFormPrevious } from "react-icons/gr";
 import { MdEdit } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -8,12 +9,20 @@ import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 const Womendashboard = () => {
   const [productItems, setProductItems] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const limit = 5;
 
   useEffect(() => {
-    fetch("http://localhost:5000/getwomen")
+    fetch(`http://localhost:5000/getwomen?page=${currentPage}&limit=${limit}`)
       .then(res => res.json())
-      .then((data) => setProductItems(data))
-  }, []);
+      .then((data) => {
+        setProductItems(data.product)
+        setTotalPage(data.totalPage)
+      })
+
+
+  }, [currentPage]);
   const deleteItem = (id) => {
     fetch(`http://localhost:5000/update/${id}`, {
       method: "DELETE"
@@ -22,7 +31,13 @@ const Womendashboard = () => {
       .then((data) => {
         toast.error('Delete Successfully');
         setProductItems(previousData => previousData.filter(item => item._id !== id));
-      })  
+      })
+  }
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPage));
   }
   return (
     <div className="pannel">
@@ -47,37 +62,42 @@ const Womendashboard = () => {
             </tr>
           </thead>
           <tbody>
-          {productItems.map((item) =>(
-            <tr key={item._id}>
-              <td>
-                <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle}/>
-              </td>
-              <td>{item.productTitle}</td>
-              <td>{item.productPrice}</td>
-              <td>{item.comparePrice}</td>
-              <td>
-                <Link to={`/admin/womenedit/${item._id}`} className="text-decoration-none"><button
-                  type="button"
-                  className="button text-capitalize edit-button shine-effect"
-                >
-                  <MdEdit /> edit
-                </button></Link>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  className="button text-capitalize delete-button shine-effect"
-                  onClick={()=> deleteItem(item._id)}
-                >
-                  <MdDeleteForever /> delete
-                </button>
-              </td>
-            </tr>
+            {productItems.map((item) => (
+              <tr key={item._id}>
+                <td>
+                  <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle} />
+                </td>
+                <td>{item.productTitle}</td>
+                <td>{item.productPrice}</td>
+                <td>{item.comparePrice}</td>
+                <td>
+                  <Link to={`/admin/womenedit/${item._id}`} className="text-decoration-none"><button
+                    type="button"
+                    className="button text-capitalize edit-button shine-effect"
+                  >
+                    <MdEdit /> edit
+                  </button></Link>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="button text-capitalize delete-button shine-effect"
+                    onClick={() => deleteItem(item._id)}
+                  >
+                    <MdDeleteForever /> delete
+                  </button>
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>
+        <div className="loons-pagination">
+          <button className="text-capitalize button-pagination" onClick={handlePreviousPage} disabled={currentPage === 1}><GrFormPrevious /></button>
+          <span className="p-2">{currentPage}</span>
+          <button className="text-capitalize button-pagination" onClick={handleNextPage} disabled={currentPage === totalPage}><MdOutlineNavigateNext /></button>
+        </div>
       </div>
-      <ToastContainer autoClose={1000}/>
+      <ToastContainer autoClose={1000} />
     </div>
   );
 };

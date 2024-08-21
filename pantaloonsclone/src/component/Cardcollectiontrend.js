@@ -47,7 +47,7 @@ const Cardcollectiontrend = () => {
                 <div className="product-image">
                     <img src={item.productImg} alt="image" />
                     <div className="add-to-cart-button">  
-                      {product.find(items => items.id === item.id)
+                      {product.find(items => items._id === item._id)
                       ? <div className="add">
                         <Link to="cart" className="view-cart text-center text-decoration-none text-white text-capitalize">view cart</Link>
                       <div className="delete-cart text-center text-white text-capitalize" onClick={()=> deleteFromCart(item) }>delete cart <MdDeleteForever/></div> </div>   :

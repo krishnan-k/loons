@@ -49,7 +49,7 @@ async function run() {
     const menCollection = client.db("pantaloonsclone").collection("men_collections");
     const kidsCollection = client.db("pantaloonsclone").collection("kids_collections");
     const trendingCollection = client.db("pantaloonsclone").collection("trending_collections");
-
+    const bestsellerCollection = client.db("pantaloonsclone").collection("bestseller_collections");
     //post method
     // app.post("/women", async (req, res) => {
     //   const data = req.body;
@@ -126,12 +126,40 @@ async function run() {
       const result = await trendingCollection.insertOne(data);
       res.send(result);
     })
-
+    app.post("/bestseller", async(req, res) =>{
+      const data = req.body
+      const result = await bestsellerCollection.insertOne(data)
+      res.send(result);
+    })
     //get method
     app.get("/getwomen", async (req, res) => {
-      const product = await womenCollection.find().toArray();
-      res.send(product);
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 5;
+
+      const pageSkip = (page - 1) * limit;
+      const total = await womenCollection.countDocuments();
+      const totalPage = Math.ceil(total / limit);
+      const product = await womenCollection.find().skip(pageSkip).limit(limit).toArray();
+      res.json({
+        product,
+        totalPage,
+        currentPage: page
+      });
     });
+    // app.get("/allproducts", async(req, res)=>{
+    //   const page = parseInt(req.query.page) || 1;
+    //   const limit = parseInt(req.query.limit) || 5;
+
+    //   const pageSkip = (page - 1) * limit;
+    //   const total = await womenCollection.countDocuments();
+    //   const totalPage = Math.ceil(total / limit);
+    //   const foods = await womenCollection.find().skip(pageSkip).limit(limit).toArray();
+    //   res.json({
+    //     foods,
+    //     totalPage,
+    //     currentPage: page
+    //   });
+    // });
     app.get("/women/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
@@ -153,27 +181,35 @@ async function run() {
     app.get("/getkids", async (req, res) => {
       const product = await kidsCollection.find().toArray();
       res.send(product);
-    })
+    });
     app.get("/kids/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const result = await kidsCollection.findOne(filter)
       res.send(result);
-    })
+    });
 
     app.get("/gettrending", async(req,res)=>{
       const product = await trendingCollection.find().toArray();
       res.send(product);
-    })
+    });
 
     app.get("/trending/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const result = await trendingCollection.findOne(filter)
       res.send(result);
-    })
-
-
+    });
+    app.get("/getbestseller", async(req,res)=>{
+      const product = await bestsellerCollection.find().toArray();
+      res.send(product);
+    });
+    app.get("/bestseller/:id", async(req,res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const result = await bestsellerCollection.findOne(filter)
+      res.send(result)
+    });
     //patch method
     app.patch("/update/:id", upload.single('img'), async (req, res) => {
       try{
@@ -273,6 +309,24 @@ async function run() {
       )
       res.send(result)
     });
+    app.patch("bestsellerupdate/:id", async(req, res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const data = req.body
+
+      const updateData = {
+        $set:{
+          ...data
+        }
+      }
+      const option = {upsert: true}
+      const result = await bestsellerCollection.updateOne(
+        filter,
+        updateData,
+        option
+      )
+      res.send(result);
+    })
     //delete method
     app.delete("/update/:id", async (req, res) => {
       const id = req.params.id;
@@ -301,6 +355,12 @@ async function run() {
       const result = await trendingCollection.deleteOne(filter)
       res.send(result);
       
+    })
+    app.delete("/bestsellerupdate/:id", async(req, res)=>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const result = await bestsellerCollection.deleteOne(filter)
+      res.send(result);
     })
 
     // Send a ping to confirm a successful connection
