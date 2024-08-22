@@ -133,29 +133,19 @@ async function run() {
     })
     //get method
     app.get("/getwomen", async (req, res) => {
-      const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || 5;
-
-      const pageSkip = (page - 1) * limit;
-      const total = await womenCollection.countDocuments();
-      const totalPage = Math.ceil(total / limit);
-      const product = await womenCollection.find().skip(pageSkip).limit(limit).toArray();
-      res.json({
-        product,
-        totalPage,
-        currentPage: page
-      });
+      const product = await womenCollection.find().toArray();
+      res.send(product);
     });
-    // app.get("/allproducts", async(req, res)=>{
+    // app.get("/getwomen", async (req, res) => {
     //   const page = parseInt(req.query.page) || 1;
     //   const limit = parseInt(req.query.limit) || 5;
 
     //   const pageSkip = (page - 1) * limit;
     //   const total = await womenCollection.countDocuments();
     //   const totalPage = Math.ceil(total / limit);
-    //   const foods = await womenCollection.find().skip(pageSkip).limit(limit).toArray();
+    //   const product = await womenCollection.find().skip(pageSkip).limit(limit).toArray();
     //   res.json({
-    //     foods,
+    //     product,
     //     totalPage,
     //     currentPage: page
     //   });
