@@ -13,19 +13,22 @@ import { Link } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 export const Cardcollection = () => {
   const [bunndleProduct, setBundle] = useState([]);
-
   useEffect(() => {
     fetch(`http://localhost:5000/getwomen`)
       .then(res => res.json())
-      .then((data) => setBundle(data))
+      .then((data) => {
+        setBundle(data.product)
+      })
+
+
   }, []);
   const product = useSelector(state =>
     state.cart.cartItems
   );
-  
-  
+
+
   const dispatch = useDispatch();
-  const addCart = (item) =>{
+  const addCart = (item) => {
     dispatch(addToCart(item));
     toast.success('Product added successfully!', {
       position: "bottom-center",
@@ -37,9 +40,9 @@ export const Cardcollection = () => {
       progress: undefined,
       theme: "light",
       transition: Bounce,
-      });
+    });
   }
-  const deleteFromCart = (item) =>{
+  const deleteFromCart = (item) => {
     dispatch(deleteCart(item));
     toast.error('Product delete successfully!', {
       position: "bottom-center",
@@ -51,7 +54,7 @@ export const Cardcollection = () => {
       progress: undefined,
       theme: "light",
       transition: Bounce,
-      });
+    });
   }
   return (
     <div className="card_collection_section mt-5 mb-0 pt-5 pb-5">
@@ -68,22 +71,22 @@ export const Cardcollection = () => {
           modules={[Navigation]}
           slidesPerView={4}
           spaceBetween={30}
-          
+
         >
           {bunndleProduct.map((item) => (
-            <SwiperSlide>
-              <div className="card border-0 card-product" key={item._id}>
+            <SwiperSlide key={item._id}>
+              <div className="card border-0 card-product">
                 <div className="product-image">
                   <Link to={`/women/${item._id}`}>
-                    <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle}/>
+                    <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle} />
                   </Link>
-                  <div className="add-to-cart-button">  
+                  <div className="add-to-cart-button">
                     {product.find(items => items._id === item._id)
-                    ? <div className="add">
-                      <Link to="/cart" className="view-cart text-center text-decoration-none text-white text-capitalize">view cart</Link>
-                     <div className="delete-cart text-center text-white text-capitalize" onClick={()=> deleteFromCart(item) }>delete cart <MdDeleteForever/></div> </div>   :
-                    <div className="add-to-cart text-center text-decoration-none text-white text-capitalize shine-effect" onClick={() => addCart(item)}>add to cart</div>
-                    } 
+                      ? <div className="add">
+                        <Link to="/cart" className="view-cart text-center text-decoration-none text-white text-capitalize">view cart</Link>
+                        <div className="delete-cart text-center text-white text-capitalize" onClick={() => deleteFromCart(item)}>delete cart <MdDeleteForever /></div> </div> :
+                      <div className="add-to-cart text-center text-decoration-none text-white text-capitalize shine-effect" onClick={() => addCart(item)}>add to cart</div>
+                    }
                   </div>
                 </div>
                 <div class="card-body">
@@ -112,7 +115,7 @@ export const Cardcollection = () => {
           ))}
         </Swiper>
       </div>
-      <ToastContainer autoClose={1000}/>
+      <ToastContainer autoClose={1000} />
     </div>
   );
 };

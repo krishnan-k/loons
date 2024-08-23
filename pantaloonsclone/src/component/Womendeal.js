@@ -15,7 +15,7 @@ const Womendeal = () => {
   useEffect(()=>{
     fetch(`http://localhost:5000/getwomen`)
     .then(res => res.json())
-    .then(data => setBundle(data))
+    .then(data => setBundle(data.product))
   })
   const autoplay = {
     delay: 2500,

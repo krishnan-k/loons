@@ -5,12 +5,12 @@ import { FaBackspace } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 const Womenedit = () => {
-  const {id} = useParams()
+  const { id } = useParams()
   const [productItems, setItems] = useState(
     {
       productTitle: '',
       productPrice: '',
-      comparePrice:'',
+      comparePrice: '',
       productImg: '',
       productDesc: ''
     });
@@ -18,13 +18,13 @@ const Womenedit = () => {
   // const handleFileChange = (e) =>{
   //   setFile(e.target.files[0]);
   // }
-  useEffect(()=>{
+  useEffect(() => {
     fetch(`http://localhost:5000/women/${id}`)
-    .then((res) => res.json())
-    .then((data) => setItems(data))
-  },[id]);
+      .then((res) => res.json())
+      .then((data) => setItems(data))
+  }, [id]);
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target
     const formData = new FormData();
@@ -33,7 +33,7 @@ const Womenedit = () => {
     // const productImg = form.productImg.value
     // const productDesc = form.productDesc.value
     //const quantity = 1
-    
+
 
     // if (productTitle === '' || productPrice === '' || productImg === '' || productDesc === ''){
     //   toast.error("Fill the all fields")
@@ -51,28 +51,28 @@ const Womenedit = () => {
     //formData.append('img', file)
 
     //check if a new image was uploaded
-    if(form.img.files.length > 0){
+    if (form.img.files.length > 0) {
       formData.append("img", form.img.files[0]);//file upload
-    }else{
+    } else {
       formData.append('productImg', form.productImg.value);//use existing img url
     }
 
-    fetch(`http://localhost:5000/update/${id}`,{
+    fetch(`http://localhost:5000/update/${id}`, {
       method: 'PATCH',
       // headers:{
       //   'Content-Type' : 'application/form-data'
       // },
-      body:formData//send format object
+      body: formData//send format object
     })
-    .then((res) => res.json())
-    .then((data) => {
-      toast.success('Product updated successfully')
-      window.location.href="/admin/womendashboard"
-    })
-    .catch((error)=>{
-      console.log('error updating product:', error);
-      toast.error('failed to update food')
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success('Product updated successfully')
+        window.location.href = "/admin/womendashboard"
+      })
+      .catch((error) => {
+        console.log('error updating product:', error);
+        toast.error('failed to update food')
+      })
 
   }
   return (
@@ -132,8 +132,10 @@ const Womenedit = () => {
               name="productImg"
               placeholder="add your Img url here"
               defaultValue={productItems.productImg}
-              
+
             />
+          </div>
+          <div className="multer_img mb-3">
             <label value="img" className="text-capitalize">
               Image url
             </label>
@@ -146,7 +148,7 @@ const Womenedit = () => {
               // onChange={handleFileChange}
               placeholder="add your Img url here"
               defaultValue={productItems.img}
-              
+
             />
           </div>
           <div className="form_description mb-3">

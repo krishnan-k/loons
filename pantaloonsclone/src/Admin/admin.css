@@ -212,3 +212,45 @@ button.button-pagination {
 button[disabled] {
   cursor: not-allowed;
 }
+.multer_img {
+  display: flex;
+  flex-direction: column;
+}
+.multer_img input[type="file"]{
+  font-size: 14px;
+}
+.pannel table.table td:first-child, .pannel table.table th:not(.bulk-delete):first-child {
+  width: 15%;
+}
+.pannel table.table td input[type="checkbox"],
+.bulk-delete input[type="checkbox"]{
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+}
+.bulk-delete button {
+  background: #d94e3d;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 36px;
+}
+.pannel table.table th.bulk-delete {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 100%;
+  align-items: center;
+  grid-gap: 10px;
+}
+.pannel table.table th.bulk-delete input[type="checkbox"] {
+  width: 18px;
+}

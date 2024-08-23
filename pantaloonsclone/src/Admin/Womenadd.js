@@ -47,7 +47,7 @@ const Womenadd = () => {
         headers:{
           'Content-Type' : 'application/form-data'
         },
-        body: JSON.stringify(productObject)
+        body:JSON.stringify(productObject)
       });
       if(response.data.insertedId){
         toast.success("Product added successfully");
@@ -136,7 +136,7 @@ const Womenadd = () => {
 
             />
           </div>
-          <div>
+          <div className="multer_img mb-3">
             <label value="img" className="text-capitalize">
               Image url
             </label>

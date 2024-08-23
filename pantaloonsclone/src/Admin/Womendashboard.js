@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Admin from "./Admin";
-import { MdAddBox, MdOutlineNavigateNext } from "react-icons/md";
+import { MdAddBox, MdDeleteSweep, MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import { MdEdit } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
@@ -11,7 +11,9 @@ const Womendashboard = () => {
   const [productItems, setProductItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const limit = 5;
+  const [bulkItems, setBulkItems] = useState([])
+  const [bulkTotalItems, setTotalBulkItems] = useState(false)
+  const limit = 4;
 
   useEffect(() => {
     fetch(`http://localhost:5000/getwomen?page=${currentPage}&limit=${limit}`)
@@ -33,11 +35,37 @@ const Womendashboard = () => {
         setProductItems(previousData => previousData.filter(item => item._id !== id));
       })
   }
+  const bulkDeleteItem = () => {
+    fetch(`http://localhost:5000/bulkdelete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ids: bulkItems })
+    })
+      .then((req) => req.json())
+      .then((data) => {
+        setProductItems(previousData => previousData.filter(item => !bulkItems.includes(item._id)));
+        // setBulkItems([]);
+      })
+  }
+  const handleSelectedItem = (id) => {
+    setBulkItems(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
+  };
+  const handleBulkSelectAll = () =>{
+    if(bulkTotalItems){
+      setBulkItems([])
+    }
+    else{
+      setBulkItems(productItems.map(item => item._id))
+    }
+    setTotalBulkItems(!bulkTotalItems)
+  }
   const handlePreviousPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
   const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, totalPage));
+    setCurrentPage((next) => Math.min(next + 1, totalPage));
   }
   return (
     <div className="pannel">
@@ -49,10 +77,19 @@ const Womendashboard = () => {
         >
           <Link className="text-decoration-none text-white" to="/admin/womenadd"><MdAddBox /> add item </Link>
 
-        </button></div>
+        </button>
+
+        </div>
         <table className="table">
           <thead>
             <tr>
+              <th className="bulk-delete text-capitalize">
+                <input type="checkbox"
+                onChange={handleBulkSelectAll}
+                checked={bulkTotalItems}
+                />
+                Select all
+              </th>
               <th className="text-capitalize">Image</th>
               <th className="text-capitalize">title</th>
               <th className="text-capitalize">price</th>
@@ -62,8 +99,14 @@ const Womendashboard = () => {
             </tr>
           </thead>
           <tbody>
+
             {productItems.map((item) => (
               <tr key={item._id}>
+                <td>
+                  <input type="checkbox"
+                    checked={bulkItems.includes(item._id)}
+                    onChange={() => handleSelectedItem(item._id)}
+                  /></td>
                 <td>
                   <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle} />
                 </td>
@@ -91,9 +134,12 @@ const Womendashboard = () => {
             ))}
           </tbody>
         </table>
+        <div className="bulk-delete">
+          <button onClick={bulkDeleteItem} disabled={productItems.length === 0}><MdDeleteSweep />Bulk delete</button>
+        </div>
         <div className="loons-pagination">
           <button className="text-capitalize button-pagination" onClick={handlePreviousPage} disabled={currentPage === 1}><GrFormPrevious /></button>
-          <span className="p-2">{currentPage}</span>
+          <span className="p-2">{currentPage}/{totalPage}</span>
           <button className="text-capitalize button-pagination" onClick={handleNextPage} disabled={currentPage === totalPage}><MdOutlineNavigateNext /></button>
         </div>
       </div>

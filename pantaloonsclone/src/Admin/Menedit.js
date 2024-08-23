@@ -120,6 +120,8 @@ const Menedit = () => {
               defaultValue={productItems.productImg}
               
             />
+          </div>
+          <div className="multer_img mb-3">
             <label value="img" className="text-capitalize">
               Image url
             </label>
@@ -132,7 +134,7 @@ const Menedit = () => {
               // onChange={handleFileChange}
               placeholder="add your Img url here"
               defaultValue={productItems.img}
-              
+
             />
           </div>
           <div className="form_description mb-3">

@@ -127,7 +127,7 @@ const Menadd = () => {
               placeholder="add your Img url here"
             />
           </div>
-          <div>
+          <div className="multer_img mb-3">
             <label value="img" className="text-capitalize">
               Image url
             </label>

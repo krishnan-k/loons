@@ -132,24 +132,24 @@ async function run() {
       res.send(result);
     })
     //get method
-    app.get("/getwomen", async (req, res) => {
-      const product = await womenCollection.find().toArray();
-      res.send(product);
-    });
     // app.get("/getwomen", async (req, res) => {
-    //   const page = parseInt(req.query.page) || 1;
-    //   const limit = parseInt(req.query.limit) || 5;
-
-    //   const pageSkip = (page - 1) * limit;
-    //   const total = await womenCollection.countDocuments();
-    //   const totalPage = Math.ceil(total / limit);
-    //   const product = await womenCollection.find().skip(pageSkip).limit(limit).toArray();
-    //   res.json({
-    //     product,
-    //     totalPage,
-    //     currentPage: page
-    //   });
+    //   const product = await womenCollection.find().toArray();
+    //   res.send(product);
     // });
+    app.get("/getwomen", async (req, res) => {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 5;
+
+      const pageSkip = (page - 1) * limit;
+      const total = await womenCollection.countDocuments();
+      const totalPage = Math.ceil(total / limit);
+      const product = await womenCollection.find().skip(pageSkip).limit(limit).toArray();
+      res.send({
+        product,
+        totalPage,
+        currentPage: page
+      });
+    });
     app.get("/women/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
@@ -352,6 +352,14 @@ async function run() {
       const result = await bestsellerCollection.deleteOne(filter)
       res.send(result);
     })
+    //bulk delete
+    app.delete('/bulkdelete', async(req,res)=>{
+      const {ids} = req.body;
+      const objectIds = ids.map(id=> new ObjectId(id));
+      const result = await womenCollection.deleteMany({_id: {$in:objectIds}});
+      res.send(result);
+    })
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });

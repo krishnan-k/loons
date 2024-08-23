@@ -40,8 +40,8 @@ const Cardcollectionnew = () => {
           spaceBetween={30}
         >
           {bunndleProduct.map((item) => (
-            <SwiperSlide>
-              <div class="card border-0 card-product" key={item._id}>
+            <SwiperSlide key={item._id}>
+              <div class="card border-0 card-product">
               <div className="product-image">
                   <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle} />
                   <div className="add-to-cart-button">  
