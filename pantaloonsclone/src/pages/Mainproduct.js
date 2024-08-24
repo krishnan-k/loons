@@ -38,6 +38,9 @@ const Mainproduct = () => {
       dispatch(updateQuantity({ id, quantity: quantity - 1 }));
     }
   };
+  const cartItem = product.find((items) => items._id === item._id);
+  const currentQuantity = cartItem ? cartItem.quantity : item.quantity
+
   return (
     <div className="main-product">
       <div className="main-product-content" key={item._id}>
@@ -87,7 +90,7 @@ const Mainproduct = () => {
                   onClick={() => deleteFromCart(item)}
                 >
                   delete cart <MdDeleteForever />
-                </div>{" "}
+                </div>
               </div>
             ) : (
               <div
@@ -97,27 +100,28 @@ const Mainproduct = () => {
                 add to cart
               </div>
             )}
-            {product.find((items) => items._id !== item.id) ? (
+            {cartItem && (
               <div className="quantity-buttons mt-2">
                 <button
                   type="button"
                   className="quantity_button"
-                  onClick={() => DecrementQuantity(item._id, item.quantity)}
+                  onClick={() => DecrementQuantity(item._id, currentQuantity)}
                 >
                   <FaMinus />
                 </button>
-                {item.quantity}
+                {currentQuantity}
                 <button
                   type="button"
                   className="quantity_button"
-                  onClick={() => IncrementQuantity(item._id, item.quantity)}
+                  onClick={() => IncrementQuantity(item._id, currentQuantity)}
                 >
                   <FaPlus />
                 </button>
               </div>
-            ) : (
-              <div>dd</div>
             )}
+
+
+
           </div>
         </div>
       </div>

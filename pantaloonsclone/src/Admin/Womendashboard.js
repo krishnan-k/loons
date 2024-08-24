@@ -71,25 +71,34 @@ const Womendashboard = () => {
     <div className="pannel">
       <Admin />
       <div className="table_section">
-        <div className="add-more-item"><button
-          type="button"
-          className="button text-capitalize add-item-button mb-3 shine-effect"
-        >
-          <Link className="text-decoration-none text-white" to="/admin/womenadd"><MdAddBox /> add item </Link>
+        <div className="btn-sec">
+          <div className="add-more-item"><button
+            type="button"
+            className="button text-capitalize add-item-button mb-3 shine-effect"
+          >
+            <Link className="text-decoration-none text-white" to="/admin/womenadd"><MdAddBox /> add item </Link>
 
-        </button>
+          </button>
 
+          </div>
+          {bulkItems.length > 1 ?
+            (<div className="bulk-delete">
+              <button onClick={bulkDeleteItem} disabled={productItems.length === 0}><MdDeleteSweep />Bulk delete</button>
+            </div>)
+            :
+            ('')
+          }
         </div>
         <table className="table">
           <thead>
             <tr>
               <th className="bulk-delete text-capitalize">
-                  <input
-                    type="checkbox"
-                    onChange={handleBulkSelectAll}
-                    checked={TotalItems}
-                  />
-                  Select all
+                <input
+                  type="checkbox"
+                  onChange={handleBulkSelectAll}
+                  checked={TotalItems}
+                />
+                Select all
               </th>
               <th className="text-capitalize">Image</th>
               <th className="text-capitalize">title</th>
@@ -111,7 +120,7 @@ const Womendashboard = () => {
                 <td>
                   <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle} />
                 </td>
-                <td>{item.productTitle}</td>
+                <td className="product-title">{item.productTitle}</td>
                 <td>{item.productPrice}</td>
                 <td>{item.comparePrice}</td>
                 <td>
@@ -135,9 +144,7 @@ const Womendashboard = () => {
             ))}
           </tbody>
         </table>
-        <div className="bulk-delete">
-          <button onClick={bulkDeleteItem} disabled={productItems.length === 0}><MdDeleteSweep />Bulk delete</button>
-        </div>
+
         <div className="loons-pagination">
           <button className="text-capitalize button-pagination" onClick={handlePreviousPage} disabled={currentPage === 1}><GrFormPrevious /></button>
           <span className="p-2">{currentPage}/{totalPage}</span>

@@ -254,3 +254,10 @@ button[disabled] {
 .pannel table.table th.bulk-delete input[type="checkbox"] {
   width: 18px;
 }
+.btn-sec {
+  display: flex;
+  gap: 15px;
+}
+td.product-title {
+  word-break: break-word;
+}
