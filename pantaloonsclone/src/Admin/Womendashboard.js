@@ -12,8 +12,8 @@ const Womendashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [bulkItems, setBulkItems] = useState([])
-  const [bulkTotalItems, setTotalBulkItems] = useState(false)
-  const limit = 4;
+  const [TotalItems, setTotalItems] = useState(false)
+  const limit = 8;
 
   useEffect(() => {
     fetch(`http://localhost:5000/getwomen?page=${currentPage}&limit=${limit}`)
@@ -52,14 +52,14 @@ const Womendashboard = () => {
   const handleSelectedItem = (id) => {
     setBulkItems(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
   };
-  const handleBulkSelectAll = () =>{
-    if(bulkTotalItems){
+  const handleBulkSelectAll = () => {
+    if (TotalItems) {
       setBulkItems([])
     }
-    else{
+    else {
       setBulkItems(productItems.map(item => item._id))
     }
-    setTotalBulkItems(!bulkTotalItems)
+    setTotalItems(!TotalItems)
   }
   const handlePreviousPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
@@ -84,11 +84,12 @@ const Womendashboard = () => {
           <thead>
             <tr>
               <th className="bulk-delete text-capitalize">
-                <input type="checkbox"
-                onChange={handleBulkSelectAll}
-                checked={bulkTotalItems}
-                />
-                Select all
+                  <input
+                    type="checkbox"
+                    onChange={handleBulkSelectAll}
+                    checked={TotalItems}
+                  />
+                  Select all
               </th>
               <th className="text-capitalize">Image</th>
               <th className="text-capitalize">title</th>
