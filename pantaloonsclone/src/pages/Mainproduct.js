@@ -39,7 +39,7 @@ const Mainproduct = () => {
     }
   };
   const cartItem = product.find((items) => items._id === item._id);
-  const currentQuantity = cartItem ? cartItem.quantity : item.quantity
+  //const currentQuantity = cartItem ? cartItem.quantity : item.quantity
 
   return (
     <div className="main-product">
@@ -105,15 +105,15 @@ const Mainproduct = () => {
                 <button
                   type="button"
                   className="quantity_button"
-                  onClick={() => DecrementQuantity(item._id, currentQuantity)}
+                  onClick={() => DecrementQuantity(item._id, cartItem.quantity)}
                 >
                   <FaMinus />
                 </button>
-                {currentQuantity}
+                {cartItem.quantity}
                 <button
                   type="button"
                   className="quantity_button"
-                  onClick={() => IncrementQuantity(item._id, currentQuantity)}
+                  onClick={() => IncrementQuantity(item._id, cartItem.quantity)}
                 >
                   <FaPlus />
                 </button>

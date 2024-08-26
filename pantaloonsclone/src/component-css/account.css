@@ -31,6 +31,7 @@
 }
 .account-settings .accout-input {
     height: 50px;
+    margin-bottom: .8rem;
 }
 .account-settings button.btn{
     padding: 13px 60px;
@@ -42,4 +43,11 @@
 }
 .mandatory_field{
     color: #eb5757;
+}
+label.form-label{
+    display: flex;
+    align-items: flex-start;
+}
+.account-details > label {
+    margin-bottom: .1rem;
 }
