@@ -8,8 +8,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+
 //Connect to frontend and backend using cors middleware
 app.use(cors());
+app.use(bodyParser.json());
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Multer storage configuration
@@ -384,11 +386,13 @@ async function run() {
             res.json({ token });
           }
           else {
-            res.status(400).json({ message: 'Invalid email or password' })
+            console.log('Invalid password for user:', username)
+            res.status(401).json({ message: 'Invalid credential' });
           }
         }
         else {
-          res.status(400).json({ message: 'Invalid email or password' })
+          console.log('User not found:', username);
+          res.status(401).json({ message: 'Invalid credentials' })
         }
       }
       catch (error) {

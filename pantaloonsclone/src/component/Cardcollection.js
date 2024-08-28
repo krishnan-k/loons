@@ -19,8 +19,6 @@ export const Cardcollection = () => {
       .then((data) => {
         setBundle(data.product)
       })
-
-
   }, []);
   const product = useSelector(state =>
     state.cart.cartItems

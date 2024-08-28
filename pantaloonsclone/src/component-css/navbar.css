@@ -102,3 +102,35 @@
 .cart_total p {
     font-size: 14px;
 }
+.account_register {
+    position: absolute;
+    background: white;
+    padding: 15px 45px 15px 15px;
+    top: 25px;
+    transition: all 0.15s linear;
+    visibility: hidden;
+    opacity: 1;
+}
+.account-icons:hover .account_register{
+    visibility: visible;
+    opacity: 1;
+    top: 35px;
+}
+.account_register li.nav-item {
+    list-style: none;
+}
+.account_register li.nav-item a{
+    color: #39cccc;
+}
+a.account-icons {
+    position: relative;
+}
+.account_register:before {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid rgb(255, 201, 41);
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+}

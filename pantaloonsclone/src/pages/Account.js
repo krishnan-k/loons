@@ -59,7 +59,6 @@ export const Account = () => {
       alert("Form is valid");
     } else {
       setErrors(errrorMessage);
-      alert("Form is Invalid");
       console.log("Form data is Invalid:", formData);
     }
   };
@@ -129,13 +128,7 @@ export const Account = () => {
                     <p className="error text-start">{error.password}</p>
                   )}
                 </div>
-<<<<<<< HEAD
-                <button type="submit" className="btn text-uppercase mt-3">
-                  submit
-                </button>
-=======
                 <button type="submit" className="btn text-uppercase mt-3">submit</button>
->>>>>>> 9ef09ae48e24cce72002a8650ca19b02fa2fa527
               </div>
             </form>
           </div>

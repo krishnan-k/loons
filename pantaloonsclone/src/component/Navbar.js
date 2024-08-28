@@ -7,7 +7,7 @@ import { FiUser } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { MdDarkMode } from "react-icons/md";
 export const Navbar = () => {
-  
+
   const headerNavigation = document.querySelector(".navbar_section");
   if (headerNavigation) {
     const navigationContent =
@@ -581,8 +581,26 @@ export const Navbar = () => {
         </div>
 
         <div className="account-icon ms-4 me-0">
-          <Link to="account">
+          <Link to="account" className="account-icons">
             <FiUser />
+            <div className="account_register">
+              <li className="nav-item">
+                <Link
+                  className="nav-link text-uppercase mb-2 ms-2 me-2 fw-normal"
+                  to="register"
+                >
+                  register
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link text-uppercase  ms-2 me-2 fw-normal"
+                  to="login"
+                >
+                  login
+                </Link>
+              </li>
+            </div>
           </Link>
         </div>
         <div className="cart-icon ms-4 me-0">

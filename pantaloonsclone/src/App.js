@@ -28,6 +28,8 @@ import Trendingedit from "./Admin/Trendingedit";
 import Bestsellerdashboard from "./Admin/Bestsellerdashboard";
 import Bestselleradd from "./Admin/Bestselleradd";
 import Admindashboard from "./Admin/Admindashboard";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 // import Cartdrawer from "./pages/Cartdrawer";
 function App() {
   return (
@@ -60,6 +62,8 @@ function App() {
           <Route path="account" element={<Account />} />
           <Route path="cart" element={<Cart />} />
           <Route path="/women/:id" element={<Mainproduct/>}/>
+          <Route path="/register" element={<Register/>}/>
+          <Route path="/login" element={<Login/>}/>
         </Routes>
         <Support/>
         <Footer />
