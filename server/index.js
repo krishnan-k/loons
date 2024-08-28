@@ -5,7 +5,9 @@ const port = process.env.PORT || 5000;
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
-
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 //Connect to frontend and backend using cors middleware
 app.use(cors());
 app.use(express.json());
@@ -58,10 +60,10 @@ async function run() {
     // });
 
     app.post("/men", upload.single('img'), async (req, res) => {
-      try{
-        const {productTitle, productPrice,productImg,productDesc,quantity} = req.body
+      try {
+        const { productTitle, productPrice, productImg, productDesc, quantity } = req.body
         const imgPath = req.file ? `/uploads/${req.file.filename}` : productImg
-        const productObject ={
+        const productObject = {
           productTitle,
           productPrice,
           productImg: imgPath,
@@ -71,26 +73,26 @@ async function run() {
         const result = await menCollection.insertOne(productObject)
         res.send(result);
       }
-      catch(error){
-        res.send(500).send({message: 'Error adding product'})
+      catch (error) {
+        res.send(500).send({ message: 'Error adding product' })
       }
     });
     //end pointing for upload image
-    app.post('upload/img', upload.single('image'), async(req,res) =>{
-      if(!req.file){
+    app.post('upload/img', upload.single('image'), async (req, res) => {
+      if (!req.file) {
         return res.status(400).send('No file uploaded')
       }
       const imageUrl = `uploads/${req.file.filename}`
       res.send(imageUrl);
     })
- 
 
 
-    app.post('/women', upload.single('img'), async(req,res)=>{
-      try{
-        const {productTitle,productPrice,comparePrice,productImg,productDesc,quantity} = req.body;
-        const imgPath = req.file ? `/uploads/${req.file.filename}`: productImg
-        
+
+    app.post('/women', upload.single('img'), async (req, res) => {
+      try {
+        const { productTitle, productPrice, comparePrice, productImg, productDesc, quantity } = req.body;
+        const imgPath = req.file ? `/uploads/${req.file.filename}` : productImg
+
         const productObject = {
           productTitle,
           productPrice,
@@ -102,17 +104,17 @@ async function run() {
         const result = await womenCollection.insertOne(productObject);
         res.send(result)
       }
-      catch(error){
-        res.status(500).send({message: 'Error aadding product'});
+      catch (error) {
+        res.status(500).send({ message: 'Error aadding product' });
       }
     })
     //end pointing for upload image
-    app.post('/upload-image', upload.single('image'), async(req,res)=>{
-      if(!req.file){
+    app.post('/upload-image', upload.single('image'), async (req, res) => {
+      if (!req.file) {
         return res.status(400).send('No file uploaded')
       }
       const imageUrl = `/uploads/${req.file.filename}`
-      res.send({imageUrl});
+      res.send({ imageUrl });
     })
 
     app.post("/kids", async (req, res) => {
@@ -121,12 +123,12 @@ async function run() {
       res.send(result);
     });
 
-    app.post("/trending", async(req, res) =>{
+    app.post("/trending", async (req, res) => {
       const data = req.body;
       const result = await trendingCollection.insertOne(data);
       res.send(result);
     })
-    app.post("/bestseller", async(req, res) =>{
+    app.post("/bestseller", async (req, res) => {
       const data = req.body
       const result = await bestsellerCollection.insertOne(data)
       res.send(result);
@@ -179,7 +181,7 @@ async function run() {
       res.send(result);
     });
 
-    app.get("/gettrending", async(req,res)=>{
+    app.get("/gettrending", async (req, res) => {
       const product = await trendingCollection.find().toArray();
       res.send(product);
     });
@@ -190,27 +192,27 @@ async function run() {
       const result = await trendingCollection.findOne(filter)
       res.send(result);
     });
-    app.get("/getbestseller", async(req,res)=>{
+    app.get("/getbestseller", async (req, res) => {
       const product = await bestsellerCollection.find().toArray();
       res.send(product);
     });
-    app.get("/bestseller/:id", async(req,res)=>{
+    app.get("/bestseller/:id", async (req, res) => {
       const id = req.params.id;
-      const filter = {_id: new ObjectId(id)}
+      const filter = { _id: new ObjectId(id) }
       const result = await bestsellerCollection.findOne(filter)
       res.send(result)
     });
     //patch method
     app.patch("/update/:id", upload.single('img'), async (req, res) => {
-      try{
+      try {
         const id = req.params.id;
         const filter = { _id: new ObjectId(id) }
         const data = req.body;
 
-        if(req.file){
+        if (req.file) {
           data.productImg = `/uploads/${req.file.filename}`;
         }
-      //update metod db
+        //update metod db
         const updateData = {
           $set: {
             ...data
@@ -225,41 +227,41 @@ async function run() {
         )
         res.send(result);
       }
-      catch(error){
+      catch (error) {
         console.error(error);
-        res.status(500).send({message: 'Error aadding food'});
+        res.status(500).send({ message: 'Error aadding food' });
       }
-      
+
     });
 
-    
+
     app.patch("/menupdate/:id", upload.single('img'), async (req, res) => {
-      try{
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) }
-      const data = req.body
+      try {
+        const id = req.params.id;
+        const filter = { _id: new ObjectId(id) }
+        const data = req.body
 
-      if(req.file){
-        data.productImg = `/uploads/${req.file.filename}`;
-      }
-      const updateData = {
-        $set: {
-          ...data
+        if (req.file) {
+          data.productImg = `/uploads/${req.file.filename}`;
         }
-      }
+        const updateData = {
+          $set: {
+            ...data
+          }
+        }
 
-      const option = { upsert: true }
-      const result = await menCollection.updateOne(
-        filter,
-        updateData,
-        option
-      )
-      res.send(result);
-    }
-    catch(error){
-      console.error(error);
-      res.status(500).send({message: 'Error aadding food'});
-    }
+        const option = { upsert: true }
+        const result = await menCollection.updateOne(
+          filter,
+          updateData,
+          option
+        )
+        res.send(result);
+      }
+      catch (error) {
+        console.error(error);
+        res.status(500).send({ message: 'Error aadding food' });
+      }
     });
 
     app.patch("/kidsupdate/:id", async (req, res) => {
@@ -281,17 +283,17 @@ async function run() {
       res.send(result);
     })
 
-    app.patch("/trendingupdate/:id", async(req,res)=>{
+    app.patch("/trendingupdate/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const data = req.body
 
       const updateData = {
-        $set:{
+        $set: {
           ...data
         }
       }
-      const option = {upsert: true}
+      const option = { upsert: true }
       const result = await trendingCollection.updateOne(
         filter,
         updateData,
@@ -299,17 +301,17 @@ async function run() {
       )
       res.send(result)
     });
-    app.patch("bestsellerupdate/:id", async(req, res)=>{
+    app.patch("bestsellerupdate/:id", async (req, res) => {
       const id = req.params.id;
-      const filter = {_id: new ObjectId(id)}
+      const filter = { _id: new ObjectId(id) }
       const data = req.body
 
       const updateData = {
-        $set:{
+        $set: {
           ...data
         }
       }
-      const option = {upsert: true}
+      const option = { upsert: true }
       const result = await bestsellerCollection.updateOne(
         filter,
         updateData,
@@ -339,25 +341,59 @@ async function run() {
       res.send(result);
     })
 
-    app.delete("/trendingupdate/:id", async(req,res)=>{
+    app.delete("/trendingupdate/:id", async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
       const result = await trendingCollection.deleteOne(filter)
       res.send(result);
-      
+
     })
-    app.delete("/bestsellerupdate/:id", async(req, res)=>{
+    app.delete("/bestsellerupdate/:id", async (req, res) => {
       const id = req.params.id;
-      const filter = {_id: new ObjectId(id)}
+      const filter = { _id: new ObjectId(id) }
       const result = await bestsellerCollection.deleteOne(filter)
       res.send(result);
     })
     //bulk delete
-    app.delete('/bulkdelete', async(req,res)=>{
-      const {ids} = req.body;
-      const objectIds = ids.map(id=> new ObjectId(id));
-      const result = await womenCollection.deleteMany({_id: {$in:objectIds}});
+    app.delete('/bulkdelete', async (req, res) => {
+      const { ids } = req.body;
+      const objectIds = ids.map(id => new ObjectId(id));
+      const result = await womenCollection.deleteMany({ _id: { $in: objectIds } });
       res.send(result);
+    })
+
+    //Authentication
+    const users = [];
+    const secretkey = "your-secret-key";
+
+    app.post('/register', async (req, res) => {
+      const { email, password } = req.body;
+      const hashPassword = await bcrypt.hash(password, 8);
+      users.push({ email, password: hashPassword });
+      res.status(201).json({ message: 'user registered successfully' });
+    });
+
+    app.post('/login', async (req, res) => {
+      try {
+        const { email, password } = req.body;
+        const userLogin = users.find((user) => user.email === email);
+        if (userLogin) {
+          const isPasswordValid = await bcrypt.compare(password, userLogin.password)
+          if (isPasswordValid) {
+            const token = jwt.sign({ email }, secretkey, { expiresIn: '1h' });
+            res.json({ token });
+          }
+          else {
+            res.status(400).json({ message: 'Invalid email or password' })
+          }
+        }
+        else {
+          res.status(400).json({ message: 'Invalid email or password' })
+        }
+      }
+      catch (error) {
+        res.status(500).send(error.message);
+      }
     })
 
 

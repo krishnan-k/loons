@@ -25,7 +25,7 @@ export const Account = () => {
                   <label className="text-start form-label text-capitalize">Password <span class="mandatory_field">*</span> </label>
                   <input className="accout-input form-control text-capitalize text-start" type="text" placeholder="Enter your password"></input>
                 </div>
-                <button type="button" className="btn text-uppercase mt-3">submit</button>
+                <button type="submit" className="btn text-uppercase mt-3">submit</button>
               </div>
             </form>
           </div>
