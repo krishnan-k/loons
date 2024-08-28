@@ -31,7 +31,7 @@
 }
 .account-settings .accout-input {
     height: 50px;
-    margin-bottom: .8rem;
+    margin-bottom: 0;
 }
 .account-settings button.btn{
     padding: 13px 60px;
@@ -50,4 +50,10 @@ label.form-label{
 }
 .account-details > label {
     margin-bottom: .1rem;
+}
+p.error {
+    color: red;
+}
+.account-details{
+    margin-bottom: .7rem;
 }
