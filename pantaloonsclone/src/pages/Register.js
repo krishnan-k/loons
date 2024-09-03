@@ -6,20 +6,34 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const validation = (email, password) => {
+        const validationErrors = [];
+        if (!email) {
+            validationErrors.push('Email is invalid')
+        }
+        if (!password) {
+            validationErrors.push('password is invalid')
+        }
+        setError(validationErrors);
+        return validationErrors.length === 0;
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            await register(email, password);
-            setSuccess('Registration successful! You can now log in')
-            setError('')
-            setEmail('');
-            setPassword('');
+        if (validation(email,password)) {
+            try {
+                await register(email, password);
+                setSuccess('Registration successful! You can now log in')
+                setError('')
+                setEmail('');
+                setPassword('');
+            }
+            catch (err) {
+                console.log('Registration error', err);
+                setError('Registeration failed')
+                setSuccess('');
+            }
         }
-        catch (err) {
-            console.log('Registration error', err);
-            setError('Registeration failed')
-            setSuccess('');
-        }
+
     }
     return (
         <div className="container-fluid account">

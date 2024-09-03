@@ -140,6 +140,8 @@ async function run() {
     //   const product = await womenCollection.find().toArray();
     //   res.send(product);
     // });
+
+    //pagination
     app.get("/getwomen", async (req, res) => {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 5;
@@ -149,7 +151,7 @@ async function run() {
       const totalPage = Math.ceil(total / limit);
       const product = await womenCollection.find().skip(pageSkip).limit(limit).toArray();
       res.send({
-        product,
+        product,  
         totalPage,
         currentPage: page
       });
