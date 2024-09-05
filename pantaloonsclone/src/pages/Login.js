@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { login } from './Authentication'
+import { Link } from 'react-router-dom';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,6 +16,7 @@ const Login = () => {
             console.log('Login successfully token', token)
             alert('Login successfully');
             setError('');
+            window.location.href="/"
         }
         catch (err) {
             console.error('Login error', err);
@@ -62,6 +64,15 @@ const Login = () => {
                                         onChange={(e) => setPassword(e.target.value)} />
                                 </div>
                                 <button type="submit" className="btn text-uppercase mt-3">login</button>
+                                <div className='login_buttons pt-2'>
+                                    <p className='m-0'>Don't have an account?</p>
+                                    <Link
+                                        className="nav-link text-uppercase ms-2 me-2 fw-normal"
+                                        to="/register"
+                                    >
+                                        register
+                                    </Link>
+                                </div>
                                 {error && <p style={{ color: "red" }}>{error}</p>}
                             </div>
                         </form>

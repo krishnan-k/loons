@@ -30,6 +30,7 @@ import Bestselleradd from "./Admin/Bestselleradd";
 import Admindashboard from "./Admin/Admindashboard";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Search from "./pages/Search";
 // import Cartdrawer from "./pages/Cartdrawer";
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
           <Route path="/women/:id" element={<Mainproduct/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/search" element={<Search/>}/>
         </Routes>
         <Support/>
         <Footer />

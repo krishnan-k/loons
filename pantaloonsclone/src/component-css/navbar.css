@@ -75,7 +75,7 @@
 .megamenu-content {
     background: white;
 }
-.cart-icon {
+.cart-icon .cart-sec {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -133,4 +133,41 @@ a.account-icons {
     position: absolute;
     top: -10px;
     left: 0;
+}
+.right_content{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content:flex-end;
+}
+form.search_btn{
+    width: 65%;
+}
+.cart_sec {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+button.search-button {
+    border: none;
+    color: black;
+    padding: 10px 20px 10px 15px;
+    border-radius: 5px;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgb(255, 201, 41);
+}
+.search-page {
+    color: white;
+}
+.search-page svg{
+    width: 19px;
+    height: 19px;
+    transition: all 0.3s linear;
+}
+.search-section {
+    width: 50%;
+    margin: auto;
 }

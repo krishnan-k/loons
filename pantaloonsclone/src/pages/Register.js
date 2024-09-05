@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { register } from './Authentication';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ const Register = () => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validation(email,password)) {
+        if (validation(email, password)) {
             try {
                 await register(email, password);
                 setSuccess('Registration successful! You can now log in')
@@ -76,6 +77,15 @@ const Register = () => {
                                         onChange={(e) => setPassword(e.target.value)} />
                                 </div>
                                 <button type="submit" className="btn text-uppercase mt-3">register</button>
+                                <div className='register_buttons pt-2'>
+                                    <p className='m-0'>Already have an accout?</p>
+                                    <Link
+                                        className="nav-link text-uppercase  ms-2 me-2 fw-normal"
+                                        to="/login"
+                                    >
+                                        login
+                                    </Link>
+                                </div>
                                 {error && <p style={{ color: "red" }}>{error}</p>}
                                 {success && <p style={{ color: "red" }}>{success}</p>}
                             </div>

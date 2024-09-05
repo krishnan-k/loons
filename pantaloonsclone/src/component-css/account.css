@@ -57,3 +57,8 @@ p.error {
 .account-details{
     margin-bottom: .7rem;
 }
+.register_buttons, .login_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

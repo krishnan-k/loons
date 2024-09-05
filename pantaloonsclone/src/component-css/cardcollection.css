@@ -259,3 +259,12 @@ span.product_price {
         left: 125%;
     }
 }
+.card img{
+    border-radius: 5px;
+}
+.search-products .card.card-product {
+    border-radius: 5px;
+    width: 23%;
+    margin: 8px;
+    padding: 5px;
+}

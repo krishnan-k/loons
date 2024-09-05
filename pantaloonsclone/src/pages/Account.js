@@ -82,7 +82,7 @@ export const Account = () => {
               <div className="account-settings pt-3 pb-3">
                 <div className="account-details acc-user">
                   <label className="text-start form-label text-capitalize">
-                    User name <span class="mandatory_field">*</span>{" "}
+                    User name <span class="mandatory_field">*</span>
                   </label>
                   <input
                     className="accout-input form-control text-capitalize text-start"
@@ -98,7 +98,7 @@ export const Account = () => {
                 </div>
                 <div className="account-details acc-mail">
                   <label className="text-start form-label text-capitalize">
-                    Mail id <span class="mandatory_field">*</span>{" "}
+                    Mail id <span class="mandatory_field">*</span>
                   </label>
                   <input
                     className="accout-input form-control text-start"
@@ -114,7 +114,7 @@ export const Account = () => {
                 </div>
                 <div className="account-details acc-password">
                   <label className="text-start form-label text-capitalize">
-                    Password <span class="mandatory_field">*</span>{" "}
+                    Password <span class="mandatory_field">*</span>
                   </label>
                   <input
                     className="accout-input form-control text-capitalize text-start"
