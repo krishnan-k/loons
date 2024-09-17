@@ -171,3 +171,18 @@ button.search-button {
     width: 50%;
     margin: auto;
 }
+
+a.fx {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.account_section p {
+    font-size: 15px;
+    color: white;
+    padding-top: 3px;
+}
+button.fx {
+    display: flex;
+    gap: 5px;
+}

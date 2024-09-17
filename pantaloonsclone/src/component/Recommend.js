@@ -1,23 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../component-css/cardcollectionnew.css";
-import recommendProducts from "../collection-products/Recommendproduct";
 import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteCart } from "../store/Cartslice";
 import { Link } from "react-router-dom";
 const Recommend = () => {
+  const [bundleProduct, setBundle] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/getwomen`)
+      .then(res => res.json())
+      .then(data => setBundle(data.product))
+  })
   const product = useSelector(state =>
     state.cart.cartItems
   );
   const dispatch = useDispatch();
-  const addCart = (item) =>{
+  const addCart = (item) => {
     dispatch(addToCart(item))
   }
-  const deleteFromCart = (item) =>{
+  const deleteFromCart = (item) => {
     dispatch(deleteCart(item))
   }
   return (
@@ -33,11 +38,11 @@ const Recommend = () => {
           slidesPerView={4}
           spaceBetween={30}
         >
-          {recommendProducts.map((item) => (
+          {bundleProduct.map((item) => (
             <SwiperSlide>
               <div class="card border-0 card-product" key={item.id}>
                 <div className="product-image">
-                  <img src={item.image} alt="image" />
+                  <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt="image" />
                   <div className="add-to-cart-button">
                     {product.find((items) => items.id === item.id) ? (
                       <div className="add">
@@ -65,9 +70,14 @@ const Recommend = () => {
                   </div>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title text-uppercase mb-1">{item.title}</h5>
-                  <p class="card-text mb-1">{item.description}</p>
-                  <p className="product_price mb-0">₹{item.price}</p>
+                  <h5 class="card-title text-uppercase mb-1">{item.productTitle}</h5>
+                  <p class="card-text mb-1">{item.productDesc}</p>
+                  <p className="product_price mb-0">
+                    ₹{item.productPrice}
+                    <span className="product_price text-decoration-line-through text-black-50 fw-bolder">
+                      ₹{item.comparePrice}
+                    </span>
+                  </p>
                 </div>
               </div>
             </SwiperSlide>
