@@ -74,7 +74,7 @@ export const Cardcollection = () => {
             <SwiperSlide key={item._id}>
               <div className="card border-0 card-product">
                 <div className="product-image">
-                  <Link to={`/women/${item._id}`}>
+                  <Link to={`/women/${item._id}`}>  
                     <img src={(item.productImg.startsWith('http')) ? item.productImg : `http://localhost:5000${item.productImg}`} alt={item.productTitle} />
                   </Link>
                   <div className="add-to-cart-button">

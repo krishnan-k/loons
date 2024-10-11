@@ -71,20 +71,12 @@ export const Navbar = () => {
               <li className="nav-item">
                 <Link
                   className="nav-link text-uppercase ms-3 me-3 fw-normal text-white"
-                  to="kids"
-                >
-                  kids
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link text-uppercase ms-3 me-3 fw-normal text-white"
                   to="/"
                 >
                   home
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   className="nav-link text-uppercase ms-3 me-3 fw-normal text-white"
                   to="brand"
@@ -99,7 +91,7 @@ export const Navbar = () => {
                 >
                   beauty
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link
                   className="nav-link text-uppercase ms-3 me-3 fw-normal text-white"
@@ -117,20 +109,25 @@ export const Navbar = () => {
             <IoSearch />
           </Link>
 
-          <div className="account-icon ms-4 me-0">
-            <FiUser />
+          <div className="account-icon ms-2 me-0">
             {(isLoggedIn) ?
-              (<div
-                className="nav-link text-uppercase  ms-2 me-2 fw-normal"
+              (<button
+                className="nav-link text-uppercase  ms-2 me-2 fw-normal fx"
                 onClick={handleLogout}
               >
-                logout
-              </div>) : (<div className="account_login">
+                <FiUser />
+                <div className="account_section">
+                  <p className="address-login m-0">Log out</p>
+                </div>
+              </button>) : (<div className="account_login">
                 <Link
-                  className="nav-link text-uppercase  ms-2 me-2 fw-normal"
+                  className="nav-link text-uppercase  ms-2 me-2 fw-normal fx"
                   to="/login"
                 >
-                  login
+                  <FiUser />
+                  <div className="account_section">
+                    <p className="address-login m-0">Log in</p>
+                  </div>
                 </Link>
               </div>)
             }
