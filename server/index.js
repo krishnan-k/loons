@@ -1,7 +1,7 @@
 //initialize the backend and front end package
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 6000;
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
